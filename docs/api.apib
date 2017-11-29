@@ -1,0 +1,76 @@
+FORMAT: 1A
+
+# To-do item collection [/items]
+
+## List all to-do items [GET]
+
++ Response 200 (application/json)
+
+        [
+          { "name": "TODO 1", "note": "Note for TODO 1" },
+          { "name": "TODO 2", "note": "Note for TODO 2" },
+          { "name": "TODO 3", "note": "Note for TODO 3" },
+          { "name": "TODO 4", "note": "Note for TODO 4" },
+          { "name": "TODO 5", "note": "Note for TODO 5" }
+        ]
+
+## Create a to-do item [POST]
+
++ Request (application/json)
+
+        {
+          "name": "TODO 6",
+          "note": "Note for TODO 6"
+        }
+
++ Response 200 (application/json)
+
+        {
+          "id": 6,
+          "name": "TODO 6",
+          "note": "Note for TODO 6"
+        }
+
+## Item [/items/{id}]
+
++ Parameters
+    + id: 6 (number) - ID of item
+
+### Get an item detail [GET]
+
++ Response 200 (application/json)
+
+        {
+          "id": 6,
+          "name": "TODO 6",
+          "note": "Note for TODO 6"
+        }
+
+### Update an item detail [PUT]
+
++ Request (application/json)
+
+    + Headers
+ 
+            Accept: application/json
+
+    + Parameters
+
+        + id: 6 (number, required) - ID of item
+
+    + Attributes
+
+        + name: "TODO 6 [edit]" (string, required)
+        + note: "Note for TODO 6 [edit]" (string, required)
+
++ Response 201 (application/json)
+
+        {
+          "id": 6,
+          "name": "TODO 6 (edit)",
+          "note": "Note for TODO 6 (edit)"
+        }
+
+### Delete an item [DELETE]
+
++ Response 204
