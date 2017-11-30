@@ -1,0 +1,38 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "standard",
+    "standard-react"
+  ],
+  "plugins": [
+    "babel",
+    "react",
+    "promise",
+    "jest"
+  ],
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "globals": {
+    "__DEV__":      false,
+    "__TEST__":     false,
+    "__PROD__":     false,
+    "__COVERAGE__": false
+  },
+  "rules": {
+    "key-spacing":          "off",
+    "jsx-quotes":           ["warn", "prefer-single"],
+    "max-len":              ["warn", 120, 2],
+    "object-curly-spacing": ["warn", "always"],
+    "no-multi-spaces":      "off",
+    "comma-dangle":         "off",
+    "space-before-function-paren": ["warn", {
+      "anonymous":  "always",
+      "named":      "never",
+      "asyncArrow": "always"
+    }],
+    "react/prop-types": ["warn", { skipUndeclared: true }],
+    "no-unused-vars": "warn",
+  }
+}
