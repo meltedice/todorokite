@@ -1,6 +1,23 @@
 import React, { Component } from 'react'
+import {
+  Route,
+  Switch, Redirect,
+} from 'react-router-dom'
+// import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+
 import logo from './logo.svg'
 import './App.css'
+
+class ItemList extends Component {
+  render() {
+    return (
+      <p className='App-intro'>
+        To get started, edit <code>src/App.js</code> and save to reload.
+      </p>
+    )
+  }
+}
 
 class App extends Component {
   render() {
@@ -10,12 +27,30 @@ class App extends Component {
           <img src={logo} className='App-logo' alt='logo' />
           <h1 className='App-title'>Welcome to React</h1>
         </header>
-        <p className='App-intro'>
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Switch>
+          <Route exact path='/' render={props => <Redirect to='/items' />} />
+          <Route path='/items' component={ItemList} />
+        </Switch>
       </div>
     )
   }
 }
 
-export default App
+function mapStateToProps(state) {
+  return {
+    location: state.routing.location,
+    // items: state.items,
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+    // itemActions: bindActionCreators(itemActions, dispatch),
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)
