@@ -1,25 +1,25 @@
 import React, { Component } from 'react'
 import {
-  Route,
-  Switch, Redirect,
+  withRouter, Route, Switch, Redirect,
 } from 'react-router-dom'
-// import { bindActionCreators } from 'redux'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+
+import * as item from '../actions/item'
+import Items from './Items'
 
 import logo from './logo.svg'
 import './App.css'
 
-class ItemList extends Component {
-  render() {
-    return (
-      <p className='App-intro'>
-        To get started, edit <code>src/App.js</code> and save to reload.
-      </p>
-    )
-  }
-}
+// Mock server is required, run by following command:
+// drakov -f docs/api.apib --autoOptions -p 3010
 
 class App extends Component {
+  componentWillMount() {
+    const { itemActions } = this.props
+    itemActions.getAllItems()
+  }
+
   render() {
     return (
       <div className='App'>
@@ -29,28 +29,24 @@ class App extends Component {
         </header>
         <Switch>
           <Route exact path='/' render={props => <Redirect to='/items' />} />
-          <Route path='/items' component={ItemList} />
+          <Route path='/items' component={Items} />
         </Switch>
       </div>
     )
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    location: state.routing.location,
-    // items: state.items,
-  }
-}
+const mapStateToProps = (state) => ({
+  location: state.routing.location,
+  items: state.items,
+})
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-    // itemActions: bindActionCreators(itemActions, dispatch),
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  dispatch,
+  itemActions: bindActionCreators(item, dispatch),
+})
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(App)
+)(App))
