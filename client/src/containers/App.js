@@ -6,24 +6,15 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import * as item from '../actions/item'
+import Items from './Items'
 
 import logo from './logo.svg'
 import './App.css'
 
-class ItemList extends Component {
-  render() {
-    return (
-      <p className='App-intro'>
-        To get started, edit <code>src/App.js</code> and save to reload.
-      </p>
-    )
-  }
-}
-
 class App extends Component {
   componentWillMount() {
     const { itemActions } = this.props
-    itemActions.getAllItems() // FIXME: Call this from better place
+    itemActions.getAllItems()
   }
 
   render() {
@@ -35,7 +26,7 @@ class App extends Component {
         </header>
         <Switch>
           <Route exact path='/' render={props => <Redirect to='/items' />} />
-          <Route path='/items' component={ItemList} />
+          <Route path='/items' component={Items} />
         </Switch>
       </div>
     )
