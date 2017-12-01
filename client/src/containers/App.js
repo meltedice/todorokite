@@ -11,6 +11,9 @@ import Items from './Items'
 import logo from './logo.svg'
 import './App.css'
 
+// Mock server is required, run by following command:
+// drakov -f docs/api.apib --autoOptions -p 3010
+
 class App extends Component {
   componentWillMount() {
     const { itemActions } = this.props
