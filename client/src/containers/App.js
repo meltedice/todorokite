@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import {
   withRouter, Route, Switch, Redirect,
 } from 'react-router-dom'
-// import { bindActionCreators } from 'redux'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+
+import * as item from '../actions/item'
 
 import logo from './logo.svg'
 import './App.css'
@@ -19,6 +21,11 @@ class ItemList extends Component {
 }
 
 class App extends Component {
+  componentWillMount() {
+    const { itemActions } = this.props
+    itemActions.getAllItems() // FIXME: Call this from better place
+  }
+
   render() {
     return (
       <div className='App'>
@@ -37,12 +44,12 @@ class App extends Component {
 
 const mapStateToProps = (state) => ({
   location: state.routing.location,
-  // items: state.items,
+  items: state.items,
 })
 
 const mapDispatchToProps = (dispatch) => ({
   dispatch,
-  // itemActions: bindActionCreators(itemActions, dispatch),
+  itemActions: bindActionCreators(item, dispatch),
 })
 
 export default withRouter(connect(
