@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import {
-  Route,
-  Switch, Redirect,
+  withRouter, Route, Switch, Redirect,
 } from 'react-router-dom'
 // import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -36,21 +35,17 @@ class App extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    location: state.routing.location,
-    // items: state.items,
-  }
-}
+const mapStateToProps = (state) => ({
+  location: state.routing.location,
+  // items: state.items,
+})
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-    // itemActions: bindActionCreators(itemActions, dispatch),
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  dispatch,
+  // itemActions: bindActionCreators(itemActions, dispatch),
+})
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(App)
+)(App))
