@@ -1,19 +1,26 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Panel from 'react-bootstrap/lib/Panel'
+import Button from 'react-bootstrap/lib/Button'
+
+class Item extends Component {
+  render() {
+    const { item } = this.props
+    const style = { 'textAlign': 'left', width: '80%' }
+    return (
+      <Button bsStyle='default' style={style}>{item.name}</Button>
+    )
+  }
+}
 
 class Items extends Component {
   render() {
     const { item } = this.props
     // FIXME: Display items on better design/layout
-    const itemRows = item.items.map((item, index) => { return <span key={index} style={{ display: 'block' }}>{item.name}</span> })
     return (
       <div>
-        <p className='App-intro'>
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <Panel>
-          {itemRows}
+        <Panel header='Inbox' style={{ marginTop: '55px', textAlign: 'left' }}>
+          {item.items.map((item, index) => <Item key={index} item={item} />)}
         </Panel>
       </div>
     )
