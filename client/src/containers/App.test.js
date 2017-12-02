@@ -36,7 +36,7 @@ describe('App', () => {
     props = {}
     mountedApp = undefined
     mock.reset()
-    mock.onGet('/items').reply(200, [
+    mock.onGet('/v1/items').reply(200, [
       { name: 'TODO 1', note: 'Note for TODO 1' },
       { name: 'TODO 2', note: 'Note for TODO 2' },
     ])
