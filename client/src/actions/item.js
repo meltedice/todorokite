@@ -14,7 +14,7 @@ export const api = axios.create({
 
 export const getAllItems = () => dispatch => {
   dispatch(getAllItemsRequest())
-  api.get('/items').then(
+  return api.get('/items').then(
     response => {
       dispatch(getAllItemsSuccess(response.data))
     }
