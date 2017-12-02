@@ -15,7 +15,7 @@ import './App.css'
 // drakov -f docs/api.apib --autoOptions -p 3010
 
 class App extends Component {
-  componentWillMount() {
+  componentDidMount() {
     const { itemActions } = this.props
     itemActions.getAllItems()
   }

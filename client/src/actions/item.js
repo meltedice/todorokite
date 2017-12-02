@@ -2,7 +2,7 @@ import axios from 'axios'
 
 import * as Item from '../constants/Item'
 
-const api = axios.create({
+export const api = axios.create({
   baseURL: 'http://localhost:3010', // FIXME: Move this into config file
   headers: {
     'Content-type': 'application/json',
@@ -14,7 +14,7 @@ const api = axios.create({
 
 export const getAllItems = () => dispatch => {
   dispatch(getAllItemsRequest())
-  api.get('/items').then(
+  return api.get('/items').then(
     response => {
       dispatch(getAllItemsSuccess(response.data))
     }
