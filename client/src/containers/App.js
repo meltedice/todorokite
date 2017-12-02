@@ -6,9 +6,9 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import * as item from '../actions/item'
+import Header from './Header'
 import Items from './Items'
 
-import logo from './logo.svg'
 import './App.css'
 
 // Mock server is required, run by following command:
@@ -23,10 +23,7 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
-        <header className='App-header'>
-          <img src={logo} className='App-logo' alt='logo' />
-          <h1 className='App-title'>Welcome to React</h1>
-        </header>
+        <Header />
         <Switch>
           <Route exact path='/' render={props => <Redirect to='/items' />} />
           <Route path='/items' component={Items} />
