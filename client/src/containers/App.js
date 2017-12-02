@@ -35,7 +35,6 @@ class App extends Component {
 
 const mapStateToProps = (state) => ({
   location: state.routing.location,
-  items: state.items,
 })
 
 const mapDispatchToProps = (dispatch) => ({
