@@ -1,16 +1,16 @@
 # Todorokite client
 
+## Start mock server in development
+
+```
+drakov -f docs/api.apib -p 3010
+```
+
 ## Start client server in development
 
 ```
 cd client/
 BROWSER=none PORT=3011 yarn start
-```
-
-## Start mock server in development
-
-```
-drakov -f docs/api.md -p 3012
 ```
 
 # This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
