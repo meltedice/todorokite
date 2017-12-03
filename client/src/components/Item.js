@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import Panel from 'react-bootstrap/lib/Panel'
 import Button from 'react-bootstrap/lib/Button'
+import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar'
+import FormGroup from 'react-bootstrap/lib/FormGroup'
+import ControlLabel from 'react-bootstrap/lib/ControlLabel'
+import FormControl from 'react-bootstrap/lib/FormControl'
 import Glyphicon from 'react-bootstrap/lib/Glyphicon'
 
 const ItemToolbox = props => {
@@ -14,7 +19,7 @@ const ItemToolbox = props => {
     fontSize: '20px',
   }
   return (
-    <div style={style}>
+    <div className='pull-right' style={style}>
       <Glyphicon glyph='unchecked' />
     </div>
   )
@@ -28,32 +33,62 @@ class ItemSummary extends Component {
 
   render() {
     const { item, onToggle } = this.props
-    const style = { 'textAlign': 'left', width: '80%' }
-    const buttonProps = { style, onClick: onToggle }
-    return (
+    const header = (
       <div>
-        <Button {...buttonProps}>{item.name}</Button>
+        <span>{item.name}</span>
         <ItemToolbox />
       </div>
+    )
+    const style = { 'textAlign': 'left', width: '80%', marginBottom: 0 }
+    const panelProps = { header, style, onClick: onToggle }
+    return (
+      <Panel {...panelProps} />
     )
   }
 }
 
-// TODO: Add editor here
 class ItemDetail extends Component {
   static propTypes = {
     item: PropTypes.object.isRequired,
     onToggle: PropTypes.func.isRequired,
   }
 
+  handleOnCancel = (event) => {
+    const { onToggle } = this.props
+    onToggle(event)
+  }
+
+  handleOnSave = (event) => {
+    const { onToggle } = this.props
+    // TODO: Call save action
+    onToggle(event)
+  }
+
   render() {
-    const { item, onToggle } = this.props
-    const style = { 'textAlign': 'left', width: '80%' }
-    return (
+    const { item } = this.props
+    const header = (
       <div>
-        <Button bsStyle='default' style={style} onClick={onToggle}>{item.name} (Detail)</Button>
+        <span style={{ display: 'inline-block' }}>{item.name}</span>
         <ItemToolbox />
       </div>
+    )
+    const style = { 'textAlign': 'left', width: '80%', marginBottom: 0 }
+    const panelProps = { header, style }
+    return (
+      <Panel {...panelProps}>
+        <FormGroup>
+          <ControlLabel>Name</ControlLabel>
+          <FormControl type='text' defaultValue={item.name} />
+        </FormGroup>
+        <FormGroup>
+          <ControlLabel>Note</ControlLabel>
+          <FormControl componentClass='textarea' defaultValue={item.note} />
+        </FormGroup>
+        <ButtonToolbar className='pull-right'>
+          <Button onClick={this.handleOnCancel}>Cancel</Button>
+          <Button onClick={this.handleOnSave} bsStyle='primary'>Save</Button>
+        </ButtonToolbar>
+      </Panel>
     )
   }
 }
