@@ -5,8 +5,9 @@ import NavItem from 'react-bootstrap/lib/NavItem'
 import { Link } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
 
+// TODO: Fix design...
 const Header = props => (
-  <Navbar inverse fixedTop>
+  <Navbar inverse fixedTop collapseOnSelect>
     <Navbar.Header>
       <Navbar.Brand>
         <Link to='/'>Todorokite</Link>
@@ -15,8 +16,9 @@ const Header = props => (
     </Navbar.Header>
     <Navbar.Collapse>
       <Nav pullRight>
+        <NavItem eventKey={1}>New</NavItem>
         <LinkContainer to='/'>
-          <NavItem eventKey={1}>Dummy</NavItem>
+          <NavItem eventKey={2}>Dummy</NavItem>
         </LinkContainer>
       </Nav>
     </Navbar.Collapse>
