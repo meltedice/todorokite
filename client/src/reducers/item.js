@@ -21,6 +21,12 @@ export const getAllItemsFailure = (state, action) => {
   return state
 }
 
+const addEmptyItem = (state, action) => {
+  const { items } = state
+  const newItem = { name: '', note: '' }
+  return { ...state, items: [newItem].concat(items) }
+}
+
 export default function item(state = initialState, action) {
   switch (action.type) {
     case Item.GET_ALL_ITEMS_REQUEST:
@@ -29,6 +35,8 @@ export default function item(state = initialState, action) {
       return getAllItemsSuccess(state, action)
     case Item.GET_ALL_ITEMS_FAILURE:
       return getAllItemsFailure(state, action)
+    case Item.ADD_EMPTY_ITEM:
+      return addEmptyItem(state, action)
     default:
       return state
   }

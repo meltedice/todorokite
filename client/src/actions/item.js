@@ -45,3 +45,9 @@ export const getAllItemsFailure = (error) => {
     error,
   }
 }
+
+export const addEmptyItem = () => {
+  return {
+    type: Item.ADD_EMPTY_ITEM,
+  }
+}
