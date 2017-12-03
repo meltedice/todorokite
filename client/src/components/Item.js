@@ -51,6 +51,13 @@ class ItemDetail extends Component {
   static propTypes = {
     item: PropTypes.object.isRequired,
     onToggle: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired,
+  }
+
+  constructor(props) {
+    super(props)
+    this.itemName = undefined
+    this.itemNote = undefined
   }
 
   handleOnCancel = (event) => {
@@ -59,8 +66,12 @@ class ItemDetail extends Component {
   }
 
   handleOnSave = (event) => {
-    const { onToggle } = this.props
-    // TODO: Call save action
+    const { onToggle, onSave } = this.props
+    const item = {
+      name: this.itemName.value,
+      note: this.itemNote.value,
+    }
+    onSave(item)
     onToggle(event)
   }
 
@@ -78,11 +89,11 @@ class ItemDetail extends Component {
       <Panel {...panelProps}>
         <FormGroup>
           <ControlLabel>Name</ControlLabel>
-          <FormControl type='text' defaultValue={item.name} />
+          <FormControl type='text' defaultValue={item.name} inputRef={ref => { this.itemName = ref }} />
         </FormGroup>
         <FormGroup>
           <ControlLabel>Note</ControlLabel>
-          <FormControl componentClass='textarea' defaultValue={item.note} />
+          <FormControl componentClass='textarea' defaultValue={item.note} inputRef={ref => { this.itemNote = ref }} />
         </FormGroup>
         <ButtonToolbar className='pull-right'>
           <Button onClick={this.handleOnCancel}>Cancel</Button>
@@ -96,6 +107,7 @@ class ItemDetail extends Component {
 class Item extends Component {
   static propTypes = {
     item: PropTypes.object.isRequired,
+    onSave: PropTypes.func.isRequired,
   }
 
   state = {
@@ -106,8 +118,6 @@ class Item extends Component {
     event.preventDefault()
     const { status } = this.state
     const nextStatus = status === 'summary' ? 'detail' : 'summary'
-    console.log(`Item: event.target: ${status} ==> ${nextStatus}`)
-    console.log(event.target)
     this.setState({ status: nextStatus })
   }
 
@@ -118,13 +128,13 @@ class Item extends Component {
   }
 
   render() {
-    const { item } = this.props
+    const { item, onSave } = this.props
     const { status } = this.state
     return (
       status === 'summary' ? (
         <ItemSummary item={item} onToggle={this.handleToggle} />
       ) : (
-        <ItemDetail item={item} onToggle={this.handleToggle} />
+        <ItemDetail item={item} onToggle={this.handleToggle} onSave={onSave} />
       )
     )
   }
