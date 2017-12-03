@@ -29,9 +29,10 @@ class ItemSummary extends Component {
   render() {
     const { item, onToggle } = this.props
     const style = { 'textAlign': 'left', width: '80%' }
+    const buttonProps = { style, onClick: onToggle }
     return (
       <div>
-        <Button bsStyle='default' style={style} onClick={onToggle}>{item.name}</Button>
+        <Button {...buttonProps}>{item.name}</Button>
         <ItemToolbox />
       </div>
     )
