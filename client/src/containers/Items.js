@@ -11,7 +11,7 @@ class Items extends Component {
     return (
       <div>
         <Panel header='Inbox' style={{ marginTop: '55px', textAlign: 'left' }}>
-          {item.items.map((item, index) => <Item key={index} item={item} />)}
+          {item.items.map((item) => <Item key={item.id || 'empty'} item={item} />)}
         </Panel>
       </div>
     )

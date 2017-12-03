@@ -23,8 +23,10 @@ export const getAllItemsFailure = (state, action) => {
 
 const addEmptyItem = (state, action) => {
   const { items } = state
-  const newItem = { name: '', note: '' }
-  return { ...state, items: [newItem].concat(items) }
+  const emptyItemExists = !!items.find(item => !item.id)
+  if (emptyItemExists) { return state }
+  const emptyItem = { name: '', note: '' }
+  return { ...state, items: items.concat(emptyItem) }
 }
 
 export default function item(state = initialState, action) {

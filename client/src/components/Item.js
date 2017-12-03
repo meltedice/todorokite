@@ -64,7 +64,7 @@ class Item extends Component {
   }
 
   state = {
-    status: 'summary',
+    status: undefined,
   }
 
   handleToggle = (event) => {
@@ -74,6 +74,12 @@ class Item extends Component {
     console.log(`Item: event.target: ${status} ==> ${nextStatus}`)
     console.log(event.target)
     this.setState({ status: nextStatus })
+  }
+
+  componentWillMount() {
+    const { item } = this.props
+    const defaultStatus = item.id ? 'summary' : 'detail'
+    this.setState({ status: defaultStatus })
   }
 
   render() {
