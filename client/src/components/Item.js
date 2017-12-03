@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import Button from 'react-bootstrap/lib/Button'
 import Glyphicon from 'react-bootstrap/lib/Glyphicon'
 
@@ -19,15 +20,70 @@ const ItemToolbox = props => {
   )
 }
 
-class Item extends Component {
+class ItemSummary extends Component {
+  static propTypes = {
+    item: PropTypes.object.isRequired,
+    onToggle: PropTypes.func.isRequired,
+  }
+
   render() {
-    const { item } = this.props
+    const { item, onToggle } = this.props
     const style = { 'textAlign': 'left', width: '80%' }
     return (
       <div>
-        <Button bsStyle='default' style={style}>{item.name}</Button>
+        <Button bsStyle='default' style={style} onClick={onToggle}>{item.name}</Button>
         <ItemToolbox />
       </div>
+    )
+  }
+}
+
+// TODO: Add editor here
+class ItemDetail extends Component {
+  static propTypes = {
+    item: PropTypes.object.isRequired,
+    onToggle: PropTypes.func.isRequired,
+  }
+
+  render() {
+    const { item, onToggle } = this.props
+    const style = { 'textAlign': 'left', width: '80%' }
+    return (
+      <div>
+        <Button bsStyle='default' style={style} onClick={onToggle}>{item.name} (Detail)</Button>
+        <ItemToolbox />
+      </div>
+    )
+  }
+}
+
+class Item extends Component {
+  static propTypes = {
+    item: PropTypes.object.isRequired,
+  }
+
+  state = {
+    status: 'summary',
+  }
+
+  handleToggle = (event) => {
+    event.preventDefault()
+    const { status } = this.state
+    const nextStatus = status === 'summary' ? 'detail' : 'summary'
+    console.log(`Item: event.target: ${status} ==> ${nextStatus}`)
+    console.log(event.target)
+    this.setState({ status: nextStatus })
+  }
+
+  render() {
+    const { item } = this.props
+    const { status } = this.state
+    return (
+      status === 'summary' ? (
+        <ItemSummary item={item} onToggle={this.handleToggle} />
+      ) : (
+        <ItemDetail item={item} onToggle={this.handleToggle} />
+      )
     )
   }
 }
