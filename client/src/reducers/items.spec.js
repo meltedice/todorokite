@@ -5,7 +5,7 @@ const initialState = {
   items: [],
 }
 
-describe('item reducer', () => {
+describe('item getAllItems() reducer', () => {
   describe('initial state', () => {
     it('should return the initial state', () => {
       expect(reducer(undefined, {})).toEqual(initialState)
@@ -13,7 +13,7 @@ describe('item reducer', () => {
   })
 
   describe('getAllItemsRequest', () => {
-    it('does not change state', () => {
+    it('does not change state (yet)', () => {
       const prevState = { ...initialState }
       const action = {
         type: Item.GET_ALL_ITEMS_REQUEST,
@@ -29,24 +29,60 @@ describe('item reducer', () => {
       const action = {
         type: Item.GET_ALL_ITEMS_SUCCESS,
         items: [
-          { name: 'TODO 1', note: 'Note for TODO 1' },
-          { name: 'TODO 2', note: 'Note for TODO 2' },
-          { name: 'TODO 3', note: 'Note for TODO 3' },
+          { id: 1, name: 'TODO 1', note: 'Note for TODO 1' },
+          { id: 2, name: 'TODO 2', note: 'Note for TODO 2' },
+          { id: 3, name: 'TODO 3', note: 'Note for TODO 3' },
         ],
       }
 
       const actualState = reducer(prevState, action)
       expect(actualState.items).toMatchObject(
         [
-          { name: 'TODO 1', note: 'Note for TODO 1' },
-          { name: 'TODO 2', note: 'Note for TODO 2' },
-          { name: 'TODO 3', note: 'Note for TODO 3' },
+          { id: 1, name: 'TODO 1', note: 'Note for TODO 1' },
+          { id: 2, name: 'TODO 2', note: 'Note for TODO 2' },
+          { id: 3, name: 'TODO 3', note: 'Note for TODO 3' },
         ]
       )
     })
   })
 
   xdescribe('getAllItemsFailure', () => {
+    it('sets error info', () => {
+      // TODO: Tests will be here
+    })
+  })
+})
+
+describe('item createItem() reducer', () => {
+  describe('createItemRequest', () => {
+    it('does not change state (yet)', () => {
+      const prevState = { ...initialState }
+      const action = {
+        type: Item.CREATE_ITEM_REQUEST,
+      }
+      const actualState = reducer(prevState, action)
+      expect(actualState.items).toMatchObject([])
+    })
+  })
+
+  describe('createItemSuccess', () => {
+    it('appends new item to items array', () => {
+      const prevState = { ...initialState }
+      const action = {
+        type: Item.CREATE_ITEM_SUCCESS,
+        item: { id: 4, name: 'TODO 4', note: 'Note for TODO 4' },
+      }
+
+      const actualState = reducer(prevState, action)
+      expect(actualState.items).toMatchObject(
+        [
+          { id: 4, name: 'TODO 4', note: 'Note for TODO 4' },
+        ]
+      )
+    })
+  })
+
+  xdescribe('createItemFailure', () => {
     it('sets error info', () => {
       // TODO: Tests will be here
     })
