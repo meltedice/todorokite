@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Navbar from 'react-bootstrap/lib/Navbar'
@@ -11,6 +12,10 @@ import * as item from '../actions/item'
 
 // TODO: Fix design...
 class Header extends Component {
+  static propTypes = {
+    itemActions: PropTypes.object.isRequired,
+  }
+
   handleAddEmptyItem = (event) => {
     const { addEmptyItem } = this.props.itemActions
     console.log('Header handleAddEmptyItem:')
@@ -43,7 +48,6 @@ class Header extends Component {
 const mapStateToProps = (state) => ({})
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatch,
   itemActions: bindActionCreators(item, dispatch),
 })
 
