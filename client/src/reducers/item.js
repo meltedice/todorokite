@@ -10,7 +10,10 @@ const getAllItemsRequest = (state, action) => {
 
 export const getAllItemsSuccess = (state, action) => {
   const { items } = action
-  return { ...state, items }
+  const nextItems = items.map(item => {
+    return { ...item, visible: true }
+  })
+  return { ...state, items: nextItems }
 }
 
 export const getAllItemsFailure = (state, action) => {
@@ -25,7 +28,7 @@ const addEmptyItem = (state, action) => {
   const { items } = state
   const emptyItemExists = !!items.find(item => !item.id)
   if (emptyItemExists) { return state }
-  const emptyItem = { name: '', note: '' }
+  const emptyItem = { name: '', note: '', visible: true }
   return { ...state, items: items.concat(emptyItem) }
 }
 
@@ -37,9 +40,10 @@ const createItemRequest = (state, action) => {
 const createItemSuccess = (state, action) => {
   const { items } = state
   const { item } = action
+  const nextItem = { ...item, visible: true }
   const nextState = {
     ...state,
-    items: items.filter(i => i.id).concat(item),
+    items: items.filter(i => i.id).concat(nextItem),
   }
   return nextState
 }
@@ -57,9 +61,10 @@ const updateItemRequest = (state, action) => {
 const updateItemSuccess = (state, action) => {
   const { items } = state
   const { item } = action
+  const nextItem = { ...item, visible: true }
   const nextState = {
     ...state,
-    items: items.map(i => i.id === item.id ? item : i)
+    items: items.map(i => i.id === item.id ? nextItem : i)
   }
   return nextState
 }
