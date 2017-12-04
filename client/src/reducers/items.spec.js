@@ -88,3 +88,45 @@ describe('item createItem() reducer', () => {
     })
   })
 })
+
+describe('item updateItem() reducer', () => {
+  const prevState = {
+    items: [
+      { id: 4, name: 'TODO 4', note: 'Note for TODO 4' },
+      { id: 5, name: 'TODO 5', note: 'Note for TODO 5' },
+    ],
+  }
+
+  describe('updateItemRequest', () => {
+    it('does not change state (yet)', () => {
+      const action = {
+        type: Item.UPDATE_ITEM_REQUEST,
+      }
+      const actualState = reducer(prevState, action)
+      expect(actualState.items).toMatchObject(prevState.items)
+    })
+  })
+
+  describe('updateItemSuccess', () => {
+    it('appends new item to items array', () => {
+      const action = {
+        type: Item.UPDATE_ITEM_SUCCESS,
+        item: { id: 4, name: 'TODO 4x', note: 'Note for TODO 4x' },
+      }
+
+      const actualState = reducer(prevState, action)
+      expect(actualState.items).toMatchObject(
+        [
+          { id: 4, name: 'TODO 4x', note: 'Note for TODO 4x' },
+          { id: 5, name: 'TODO 5', note: 'Note for TODO 5' },
+        ]
+      )
+    })
+  })
+
+  xdescribe('updateItemFailure', () => {
+    it('sets error info', () => {
+      // TODO: Tests will be here
+    })
+  })
+})

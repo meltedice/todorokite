@@ -42,11 +42,14 @@ describe('getAllItems', () => {
 })
 
 describe('createItem', () => {
-  const params = { name: 'TODO 3', note: 'Note for TODO 3' }
-  const newItem = { id: 3, name: 'TODO 3', note: 'Note for TODO 3' }
-
   beforeEach(() => {
-    mock.onPost('/v1/items', params).reply(200, newItem)
+    mock.onPost(
+      '/v1/items',
+      { name: 'TODO 3', note: 'Note for TODO 3' }
+    ).reply(
+      200,
+      { id: 3, name: 'TODO 3', note: 'Note for TODO 3' }
+    )
   })
 
   afterEach(() => {
@@ -57,15 +60,50 @@ describe('createItem', () => {
     const expectedActions = [
       {
         type: Item.CREATE_ITEM_REQUEST,
-        item: params,
+        item: { name: 'TODO 3', note: 'Note for TODO 3' },
       },
       {
         type: Item.CREATE_ITEM_SUCCESS,
-        item: newItem,
+        item: { id: 3, name: 'TODO 3', note: 'Note for TODO 3' },
       },
     ]
     const store = mockStore({ items: [] })
+    const params = { name: 'TODO 3', note: 'Note for TODO 3' }
     store.dispatch(actions.createItem(params)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+})
+
+describe('updateItem', () => {
+  beforeEach(() => {
+    mock.onPut(
+      `/v1/items/2`,
+      { id: 2, name: 'TODO 2 (mod)', note: 'Note for TODO 2 (mod)' }
+    ).reply(
+      201,
+      { id: 2, name: 'TODO 2 (mod)', note: 'Note for TODO 2 (mod)' }
+    )
+  })
+
+  afterEach(() => {
+    mock.reset()
+  })
+
+  it('sends request then receive response', () => {
+    const expectedActions = [
+      {
+        type: Item.UPDATE_ITEM_REQUEST,
+        item: { id: 2, name: 'TODO 2 (mod)', note: 'Note for TODO 2 (mod)' },
+      },
+      {
+        type: Item.UPDATE_ITEM_SUCCESS,
+        item: { id: 2, name: 'TODO 2 (mod)', note: 'Note for TODO 2 (mod)' },
+      },
+    ]
+    const store = mockStore({ items: [] })
+    const params = { id: 2, name: 'TODO 2 (mod)', note: 'Note for TODO 2 (mod)' }
+    store.dispatch(actions.updateItem(params)).then(() => {
       expect(store.getActions()).toEqual(expectedActions)
     })
   })
