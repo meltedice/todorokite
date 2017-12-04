@@ -69,6 +69,26 @@ const updateItemFailure = (state, action) => {
   return state
 }
 
+const deleteItemRequest = (state, action) => {
+  // const { id } = action
+  return state
+}
+
+const deleteItemSuccess = (state, action) => {
+  const { items } = state
+  const { id } = action
+  const nextState = {
+    ...state,
+    items: items.filter(i => i.id !== id)
+  }
+  return nextState
+}
+
+const deleteItemFailure = (state, action) => {
+  // const { error } = action
+  return state
+}
+
 export default function item(state = initialState, action) {
   switch (action.type) {
     case Item.GET_ALL_ITEMS_REQUEST:
@@ -91,6 +111,12 @@ export default function item(state = initialState, action) {
       return updateItemSuccess(state, action)
     case Item.UPDATE_ITEM_FAILURE:
       return updateItemFailure(state, action)
+    case Item.DELETE_ITEM_REQUEST:
+      return deleteItemRequest(state, action)
+    case Item.DELETE_ITEM_SUCCESS:
+      return deleteItemSuccess(state, action)
+    case Item.DELETE_ITEM_FAILURE:
+      return deleteItemFailure(state, action)
     default:
       return state
   }

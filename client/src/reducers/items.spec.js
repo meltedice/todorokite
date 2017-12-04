@@ -130,3 +130,47 @@ describe('item updateItem() reducer', () => {
     })
   })
 })
+
+describe('item deleteItem() reducer', () => {
+  const prevState = {
+    items: [
+      { id: 3, name: 'TODO 3', note: 'Note for TODO 3' },
+      { id: 4, name: 'TODO 4', note: 'Note for TODO 4' },
+      { id: 5, name: 'TODO 5', note: 'Note for TODO 5' },
+    ],
+  }
+
+  describe('deleteItemRequest', () => {
+    it('does not change state (yet)', () => {
+      const action = {
+        type: Item.DELETE_ITEM_REQUEST,
+        id: 4,
+      }
+      const actualState = reducer(prevState, action)
+      expect(actualState.items).toMatchObject(prevState.items)
+    })
+  })
+
+  describe('deleteItemSuccess', () => {
+    it('removes an item from items array', () => {
+      const action = {
+        type: Item.DELETE_ITEM_SUCCESS,
+        id: 4,
+      }
+
+      const actualState = reducer(prevState, action)
+      expect(actualState.items).toMatchObject(
+        [
+          { id: 3, name: 'TODO 3', note: 'Note for TODO 3' },
+          { id: 5, name: 'TODO 5', note: 'Note for TODO 5' },
+        ]
+      )
+    })
+  })
+
+  xdescribe('deleteItemFailure', () => {
+    it('sets error info', () => {
+      // TODO: Tests will be here
+    })
+  })
+})
