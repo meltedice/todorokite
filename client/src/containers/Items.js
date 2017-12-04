@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Panel from 'react-bootstrap/lib/Panel'
@@ -7,6 +8,11 @@ import * as item from '../actions/item'
 import Item from '../components/Item'
 
 class Items extends Component {
+  static propTypes = {
+    item: PropTypes.object.isRequired,
+    itemActions: PropTypes.object.isRequired,
+  }
+
   onCreate = (item) => {
     const { createItem } = this.props.itemActions
     createItem(item)
@@ -41,12 +47,10 @@ class Items extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  location: state.routing.location,
   item: state.item,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatch,
   itemActions: bindActionCreators(item, dispatch),
 })
 
