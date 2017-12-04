@@ -1,47 +1,39 @@
 import React, { Component } from 'react'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Panel from 'react-bootstrap/lib/Panel'
-import Button from 'react-bootstrap/lib/Button'
-import Glyphicon from 'react-bootstrap/lib/Glyphicon'
 
-const ItemToolbox = props => {
-  // FIXME: Adjust layout later
-  const style = {
-    display: 'inline-block',
-    color: 'gray',
-    verticalAlign: 'middle',
-    paddingTop: '5px',
-    paddingLeft: '10px',
-    fontSize: '20px',
-  }
-  return (
-    <div style={style}>
-      <Glyphicon glyph='unchecked' />
-    </div>
-  )
-}
-
-class Item extends Component {
-  render() {
-    const { item } = this.props
-    const style = { 'textAlign': 'left', width: '80%' }
-    return (
-      <div>
-        <Button bsStyle='default' style={style}>{item.name}</Button>
-        <ItemToolbox />
-      </div>
-    )
-  }
-}
+import * as item from '../actions/item'
+import Item from '../components/Item'
 
 class Items extends Component {
-  render() {
+  onCreate = (item) => {
+    const { createItem } = this.props.itemActions
+    createItem(item)
+  }
+
+  onUpdate = (item) => {
+    console.log('onUpdate item:')
+    console.log(item)
+    // const { updateItem } = this.props.itemActions
+    // updateItem(item)
+  }
+
+  buildItemComponents = () => {
     const { item } = this.props
+    return item.items.map((item) => {
+      const key = item.id || 'empty'
+      const onSave = item.id ? this.onUpdate : this.onCreate
+      return <Item key={key} item={item} onSave={onSave} />
+    })
+  }
+
+  render() {
     // FIXME: Display items on better design/layout
     return (
       <div>
         <Panel header='Inbox' style={{ marginTop: '55px', textAlign: 'left' }}>
-          {item.items.map((item, index) => <Item key={index} item={item} />)}
+          {this.buildItemComponents()}
         </Panel>
       </div>
     )
@@ -55,7 +47,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   dispatch,
-  // itemActions: bindActionCreators(item, dispatch),
+  itemActions: bindActionCreators(item, dispatch),
 })
 
 export default connect(

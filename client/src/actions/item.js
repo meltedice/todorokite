@@ -45,3 +45,44 @@ export const getAllItemsFailure = (error) => {
     error,
   }
 }
+
+export const addEmptyItem = () => {
+  return {
+    type: Item.ADD_EMPTY_ITEM,
+  }
+}
+
+export const createItem = (item) => dispatch => {
+  dispatch(createItemRequest(item))
+  return api.post('/v1/items', item).then(
+    response => {
+      dispatch(createItemSuccess(response.data))
+    }
+  ).catch(
+    error => {
+      console.error(error)
+      dispatch(createItemFailure(error))
+    }
+  )
+}
+
+export const createItemRequest = (item) => {
+  return {
+    type: Item.CREATE_ITEM_REQUEST,
+    item,
+  }
+}
+
+export const createItemSuccess = (item) => {
+  return {
+    type: Item.CREATE_ITEM_SUCCESS,
+    item,
+  }
+}
+
+export const createItemFailure = (error) => {
+  return {
+    type: Item.CREATE_ITEM_FAILURE,
+    error,
+  }
+}

@@ -26,7 +26,7 @@ class App extends Component {
         <Header />
         <Switch>
           <Route exact path='/' render={props => <Redirect to='/items' />} />
-          <Route path='/items' component={Items} />
+          <Route exact path='/items' component={Items} />
         </Switch>
       </div>
     )
