@@ -27,12 +27,18 @@ class Items extends Component {
     updateItem(params)
   }
 
+  onDelete = (item) => {
+    const { deleteItem } = this.props.itemActions
+    const { id } = item
+    deleteItem(id)
+  }
+
   buildItemComponents = () => {
     const { item } = this.props
     return item.items.map((item) => {
       const key = item.id || 'empty'
       const onSave = item.id ? this.onUpdate : this.onCreate
-      return <Item key={key} item={item} onSave={onSave} />
+      return <Item key={key} item={item} onSave={onSave} onDelete={this.onDelete} />
     })
   }
 

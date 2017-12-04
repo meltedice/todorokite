@@ -52,6 +52,7 @@ class ItemDetail extends Component {
     item: PropTypes.object.isRequired,
     onToggle: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -76,6 +77,11 @@ class ItemDetail extends Component {
     onToggle(event)
   }
 
+  handleOnDelete = (event) => {
+    const { item, onDelete } = this.props
+    onDelete(item)
+  }
+
   render() {
     const { item } = this.props
     const header = (
@@ -96,10 +102,17 @@ class ItemDetail extends Component {
           <ControlLabel>Note</ControlLabel>
           <FormControl componentClass='textarea' defaultValue={item.note} inputRef={ref => { this.itemNote = ref }} />
         </FormGroup>
-        <ButtonToolbar className='pull-right'>
-          <Button onClick={this.handleOnCancel}>Cancel</Button>
-          <Button onClick={this.handleOnSave} bsStyle='primary'>Save</Button>
-        </ButtonToolbar>
+        <div>
+          <ButtonToolbar className='pull-left'>
+            <Button onClick={this.handleOnDelete} bsStyle='danger'>
+              <Glyphicon glyph='trash' />
+            </Button>
+          </ButtonToolbar>
+          <ButtonToolbar className='pull-right'>
+            <Button onClick={this.handleOnCancel}>Cancel</Button>
+            <Button onClick={this.handleOnSave} bsStyle='primary'>Save</Button>
+          </ButtonToolbar>
+        </div>
       </Panel>
     )
   }
@@ -109,6 +122,7 @@ class Item extends Component {
   static propTypes = {
     item: PropTypes.object.isRequired,
     onSave: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
   }
 
   state = {
@@ -129,13 +143,13 @@ class Item extends Component {
   }
 
   render() {
-    const { item, onSave } = this.props
+    const { item, onSave, onDelete } = this.props
     const { status } = this.state
     return (
       status === 'summary' ? (
         <ItemSummary item={item} onToggle={this.handleToggle} />
       ) : (
-        <ItemDetail item={item} onToggle={this.handleToggle} onSave={onSave} />
+        <ItemDetail item={item} onToggle={this.handleToggle} onSave={onSave} onDelete={onDelete} />
       )
     )
   }
