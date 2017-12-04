@@ -66,12 +66,13 @@ class ItemDetail extends Component {
   }
 
   handleOnSave = (event) => {
-    const { onToggle, onSave } = this.props
-    const item = {
+    const { item, onToggle, onSave } = this.props
+    const params = {
+      id: item.id,
       name: this.itemName.value,
       note: this.itemNote.value,
     }
-    onSave(item)
+    onSave(params)
     onToggle(event)
   }
 

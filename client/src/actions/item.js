@@ -86,3 +86,38 @@ export const createItemFailure = (error) => {
     error,
   }
 }
+
+export const updateItem = (item) => dispatch => {
+  dispatch(updateItemRequest(item))
+  return api.put(`/v1/items/${item.id}`, item).then(
+    response => {
+      dispatch(updateItemSuccess(response.data))
+    }
+  ).catch(
+    error => {
+      console.error(error)
+      dispatch(updateItemFailure(error))
+    }
+  )
+}
+
+export const updateItemRequest = (item) => {
+  return {
+    type: Item.UPDATE_ITEM_REQUEST,
+    item,
+  }
+}
+
+export const updateItemSuccess = (item) => {
+  return {
+    type: Item.UPDATE_ITEM_SUCCESS,
+    item,
+  }
+}
+
+export const updateItemFailure = (error) => {
+  return {
+    type: Item.UPDATE_ITEM_FAILURE,
+    error,
+  }
+}

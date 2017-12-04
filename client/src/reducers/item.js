@@ -45,6 +45,27 @@ const createItemSuccess = (state, action) => {
 }
 
 const createItemFailure = (state, action) => {
+  // const { error } = action
+  return state
+}
+
+const updateItemRequest = (state, action) => {
+  // const { item } = action
+  return state
+}
+
+const updateItemSuccess = (state, action) => {
+  const { items } = state
+  const { item } = action
+  const nextState = {
+    ...state,
+    items: items.map(i => i.id === item.id ? item : i)
+  }
+  return nextState
+}
+
+const updateItemFailure = (state, action) => {
+  // const { error } = action
   return state
 }
 
@@ -64,6 +85,12 @@ export default function item(state = initialState, action) {
       return createItemSuccess(state, action)
     case Item.CREATE_ITEM_FAILURE:
       return createItemFailure(state, action)
+    case Item.UPDATE_ITEM_REQUEST:
+      return updateItemRequest(state, action)
+    case Item.UPDATE_ITEM_SUCCESS:
+      return updateItemSuccess(state, action)
+    case Item.UPDATE_ITEM_FAILURE:
+      return updateItemFailure(state, action)
     default:
       return state
   }

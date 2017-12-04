@@ -15,14 +15,16 @@ class Items extends Component {
 
   onCreate = (item) => {
     const { createItem } = this.props.itemActions
-    createItem(item)
+    const { name, note } = item
+    const params = { name, note }
+    createItem(params)
   }
 
   onUpdate = (item) => {
-    console.log('onUpdate item:')
-    console.log(item)
-    // const { updateItem } = this.props.itemActions
-    // updateItem(item)
+    const { updateItem } = this.props.itemActions
+    const { id, name, note } = item
+    const params = { id, name, note }
+    updateItem(params)
   }
 
   buildItemComponents = () => {
