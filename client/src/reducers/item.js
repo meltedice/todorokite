@@ -39,7 +39,7 @@ const createItemSuccess = (state, action) => {
   const { item } = action
   const nextState = {
     ...state,
-    items: items.map(i => (i.id ? i : item)),
+    items: items.filter(i => i.id).concat(item),
   }
   return nextState
 }

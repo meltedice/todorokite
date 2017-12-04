@@ -34,7 +34,7 @@ class ItemSummary extends Component {
   render() {
     const { item, onToggle } = this.props
     const header = (
-      <div>
+      <div className='item-summary'>
         <span>{item.name}</span>
         <ItemToolbox />
       </div>
@@ -78,7 +78,7 @@ class ItemDetail extends Component {
   render() {
     const { item } = this.props
     const header = (
-      <div>
+      <div className='item-detail'>
         <span style={{ display: 'inline-block' }}>{item.name}</span>
         <ItemToolbox />
       </div>
