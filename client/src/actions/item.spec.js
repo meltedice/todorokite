@@ -108,3 +108,30 @@ describe('updateItem', () => {
     })
   })
 })
+
+describe('deleteItem', () => {
+  beforeEach(() => {
+    mock.onDelete(`/v1/items/4`).reply(204)
+  })
+
+  afterEach(() => {
+    mock.reset()
+  })
+
+  it('sends request then receive response', () => {
+    const expectedActions = [
+      {
+        type: Item.DELETE_ITEM_REQUEST,
+        id: 4,
+      },
+      {
+        type: Item.DELETE_ITEM_SUCCESS,
+        id: 4,
+      },
+    ]
+    const store = mockStore({ items: [] })
+    store.dispatch(actions.deleteItem(4)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+})

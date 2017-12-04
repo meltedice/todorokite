@@ -121,3 +121,38 @@ export const updateItemFailure = (error) => {
     error,
   }
 }
+
+export const deleteItem = (id) => dispatch => {
+  dispatch(deleteItemRequest(id))
+  return api.delete(`/v1/items/${id}`).then(
+    response => {
+      dispatch(deleteItemSuccess(id))
+    }
+  ).catch(
+    error => {
+      console.error(error)
+      dispatch(deleteItemFailure(error))
+    }
+  )
+}
+
+export const deleteItemRequest = (id) => {
+  return {
+    type: Item.DELETE_ITEM_REQUEST,
+    id,
+  }
+}
+
+export const deleteItemSuccess = (id) => {
+  return {
+    type: Item.DELETE_ITEM_SUCCESS,
+    id,
+  }
+}
+
+export const deleteItemFailure = (error) => {
+  return {
+    type: Item.DELETE_ITEM_FAILURE,
+    error,
+  }
+}
