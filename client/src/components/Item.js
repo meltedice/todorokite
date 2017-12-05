@@ -146,11 +146,13 @@ class Item extends Component {
     const { item, onSave, onDelete } = this.props
     const { status } = this.state
     return (
-      status === 'summary' ? (
-        <ItemSummary item={item} onToggle={this.handleToggle} />
-      ) : (
-        <ItemDetail item={item} onToggle={this.handleToggle} onSave={onSave} onDelete={onDelete} />
-      )
+      <div className='item'>
+        {status === 'summary' ? (
+          <ItemSummary item={item} onToggle={this.handleToggle} />
+        ) : (
+          <ItemDetail item={item} onToggle={this.handleToggle} onSave={onSave} onDelete={onDelete} />
+        )}
+      </div>
     )
   }
 }
