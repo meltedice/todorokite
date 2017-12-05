@@ -38,9 +38,9 @@ describe('item getAllItems() reducer', () => {
       const actualState = reducer(prevState, action)
       expect(actualState.items).toMatchObject(
         [
-          { id: 1, name: 'TODO 1', note: 'Note for TODO 1' },
-          { id: 2, name: 'TODO 2', note: 'Note for TODO 2' },
-          { id: 3, name: 'TODO 3', note: 'Note for TODO 3' },
+          { id: 1, name: 'TODO 1', note: 'Note for TODO 1', visible: true },
+          { id: 2, name: 'TODO 2', note: 'Note for TODO 2', visible: true },
+          { id: 3, name: 'TODO 3', note: 'Note for TODO 3', visible: true },
         ]
       )
     })
@@ -76,7 +76,7 @@ describe('item createItem() reducer', () => {
       const actualState = reducer(prevState, action)
       expect(actualState.items).toMatchObject(
         [
-          { id: 4, name: 'TODO 4', note: 'Note for TODO 4' },
+          { id: 4, name: 'TODO 4', note: 'Note for TODO 4', visible: true },
         ]
       )
     })
@@ -92,8 +92,8 @@ describe('item createItem() reducer', () => {
 describe('item updateItem() reducer', () => {
   const prevState = {
     items: [
-      { id: 4, name: 'TODO 4', note: 'Note for TODO 4' },
-      { id: 5, name: 'TODO 5', note: 'Note for TODO 5' },
+      { id: 4, name: 'TODO 4', note: 'Note for TODO 4', visible: true },
+      { id: 5, name: 'TODO 5', note: 'Note for TODO 5', visible: true },
     ],
   }
 
@@ -117,8 +117,8 @@ describe('item updateItem() reducer', () => {
       const actualState = reducer(prevState, action)
       expect(actualState.items).toMatchObject(
         [
-          { id: 4, name: 'TODO 4x', note: 'Note for TODO 4x' },
-          { id: 5, name: 'TODO 5', note: 'Note for TODO 5' },
+          { id: 4, name: 'TODO 4x', note: 'Note for TODO 4x', visible: true },
+          { id: 5, name: 'TODO 5', note: 'Note for TODO 5', visible: true },
         ]
       )
     })
@@ -134,9 +134,9 @@ describe('item updateItem() reducer', () => {
 describe('item deleteItem() reducer', () => {
   const prevState = {
     items: [
-      { id: 3, name: 'TODO 3', note: 'Note for TODO 3' },
-      { id: 4, name: 'TODO 4', note: 'Note for TODO 4' },
-      { id: 5, name: 'TODO 5', note: 'Note for TODO 5' },
+      { id: 3, name: 'TODO 3', note: 'Note for TODO 3', visible: true },
+      { id: 4, name: 'TODO 4', note: 'Note for TODO 4', visible: true },
+      { id: 5, name: 'TODO 5', note: 'Note for TODO 5', visible: true },
     ],
   }
 
@@ -161,8 +161,8 @@ describe('item deleteItem() reducer', () => {
       const actualState = reducer(prevState, action)
       expect(actualState.items).toMatchObject(
         [
-          { id: 3, name: 'TODO 3', note: 'Note for TODO 3' },
-          { id: 5, name: 'TODO 5', note: 'Note for TODO 5' },
+          { id: 3, name: 'TODO 3', note: 'Note for TODO 3', visible: true },
+          { id: 5, name: 'TODO 5', note: 'Note for TODO 5', visible: true },
         ]
       )
     })

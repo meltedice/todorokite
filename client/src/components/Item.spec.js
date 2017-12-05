@@ -10,7 +10,9 @@ describe('Item', () => {
   it('renders Detail view with a new empty item', () => {
     const item = { name: 'Name:Empty', note: 'Note:Empty' }
     const onSave = jest.fn()
-    const itemComponent = mount(<Item item={item} onSave={onSave} />)
+    const onDelete = jest.fn()
+    const itemComponent = mount(<Item item={item} onSave={onSave} onDelete={onDelete} />)
+    expect(itemComponent.find('.item').exists()).toBeTruthy()
     expect(itemComponent.find('.item-summary').exists()).toBeFalsy()
     expect(itemComponent.find('.item-detail').exists()).toBeTruthy()
   })
@@ -18,7 +20,9 @@ describe('Item', () => {
   it('renders Summary view with a persisted item', () => {
     const item = { id: 9, name: 'Name:Nine', note: 'Note:Nine' }
     const onSave = jest.fn()
-    const itemComponent = mount(<Item item={item} onSave={onSave} />)
+    const onDelete = jest.fn()
+    const itemComponent = mount(<Item item={item} onSave={onSave} onDelete={onDelete} />)
+    expect(itemComponent.find('.item').exists()).toBeTruthy()
     expect(itemComponent.find('.item-summary').exists()).toBeTruthy()
     expect(itemComponent.find('.item-detail').exists()).toBeFalsy()
   })
