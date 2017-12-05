@@ -11,6 +11,7 @@ class Items extends Component {
   static propTypes = {
     item: PropTypes.object.isRequired,
     itemActions: PropTypes.object.isRequired,
+    searchQuery: PropTypes.string,
   }
 
   onCreate = (item) => {
@@ -33,9 +34,19 @@ class Items extends Component {
     deleteItem(id)
   }
 
+  createSearchFilter = () => {
+    const { searchQuery } = this.props
+    return (item) => {
+      if (!searchQuery) return true
+      const name = item.name || ''
+      return name.includes(searchQuery)
+    }
+  }
+
   buildItemComponents = () => {
     const { item } = this.props
-    return item.items.map((item) => {
+    const filteredItems = item.items.filter(this.createSearchFilter())
+    return filteredItems.map((item) => {
       const key = item.id || 'empty'
       const onSave = item.id ? this.onUpdate : this.onCreate
       return <Item key={key} item={item} onSave={onSave} onDelete={this.onDelete} />
