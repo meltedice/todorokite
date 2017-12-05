@@ -34,18 +34,24 @@ class Items extends Component {
     deleteItem(id)
   }
 
-  createSearchFilter = () => {
-    const { searchQuery } = this.props
+  buildSearchKeywords = (searchQuery) => {
+    if (!searchQuery) return null
+    const normalizedQuery = searchQuery.trim().toLowerCase()
+    return normalizedQuery.split(/ +/)
+  }
+
+  createSearchFilter = (searchQuery) => {
+    const keywords = this.buildSearchKeywords(searchQuery)
     return (item) => {
-      if (!searchQuery) return true
-      const name = item.name || ''
-      return name.includes(searchQuery)
+      if (!keywords) return true
+      const itemName = item.name || ''
+      return keywords.every(keyword => itemName.includes(keyword))
     }
   }
 
   buildItemComponents = () => {
-    const { item } = this.props
-    const filteredItems = item.items.filter(this.createSearchFilter())
+    const { item, searchQuery } = this.props
+    const filteredItems = item.items.filter(this.createSearchFilter(searchQuery))
     return filteredItems.map((item) => {
       const key = item.id || 'empty'
       const onSave = item.id ? this.onUpdate : this.onCreate

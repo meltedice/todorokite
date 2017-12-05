@@ -101,5 +101,10 @@ describe('Items', () => {
       props = { searchQuery: 'z' }
       expect(itemsContainer().find('.item').length).toBe(0)
     })
+
+    it('finds 3 items', () => {
+      props = { searchQuery: ' 00  g ' }
+      expect(itemsContainer().find('.item').length).toBe(3)
+    })
   })
 })
