@@ -25,15 +25,21 @@ require 'rails_helper'
 
 RSpec.describe V1::ItemsController, type: :controller do
 
+  before(:each) do
+    request.env['HTTP_ACCEPT'] = 'application/json'
+  end
+
   # This should return the minimal set of attributes required to create a valid
   # Item. As you add validations to Item, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    # skip("Add a hash of attributes valid for your model")
+    { name: 'my name', note: 'my note' }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    # skip("Add a hash of attributes invalid for your model")
+    { name: nil, note: nil }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -70,7 +76,7 @@ RSpec.describe V1::ItemsController, type: :controller do
         post :create, params: {item: valid_attributes}, session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
-        expect(response.location).to eq(item_url(Item.last))
+        expect(response.location).to eq(v1_item_url(Item.last))
       end
     end
 
@@ -87,14 +93,17 @@ RSpec.describe V1::ItemsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        # skip("Add a hash of attributes valid for your model")
+        { name: 'my NEW name', note: 'my NEW note' }
       }
 
       it "updates the requested item" do
         item = Item.create! valid_attributes
         put :update, params: {id: item.to_param, item: new_attributes}, session: valid_session
         item.reload
-        skip("Add assertions for updated state")
+        # skip("Add assertions for updated state")
+        expect(item.name).to eq('my NEW name')
+        expect(item.note).to eq('my NEW note')
       end
 
       it "renders a JSON response with the item" do
