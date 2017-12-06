@@ -8,7 +8,7 @@ import App from './containers/App'
 import createFinalStore from './store'
 import registerServiceWorker from './registerServiceWorker'
 
-import './index.css'
+import './index.sass'
 
 const history = createHistory()
 const store = createFinalStore(history)

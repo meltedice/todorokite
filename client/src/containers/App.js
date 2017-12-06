@@ -9,7 +9,7 @@ import * as item from '../actions/item'
 import Header from './Header'
 import Items from './Items'
 
-import './App.css'
+import './App.sass'
 
 // Mock server is required, run by following command:
 // drakov -f docs/api.apib --autoOptions -p 3010
