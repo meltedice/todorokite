@@ -1,9 +1,10 @@
 import axios from 'axios'
 
 import * as Item from '../constants/Item'
+import settings from '../settings'
 
 export const api = axios.create({
-  baseURL: 'http://localhost:3010', // FIXME: Move this into config file
+  baseURL: settings.apiUrl,
   headers: {
     'Content-type': 'application/json',
     'X-Requested-With': 'XMLHttpRequest', // This makes rails to respond in JSON
