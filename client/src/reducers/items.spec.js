@@ -174,3 +174,93 @@ describe('item reducer: deleteItem()', () => {
     })
   })
 })
+
+describe('item reducer: completeItem()', () => {
+  const prevState = {
+    items: [
+      { id: 3, state: 'active', name: 'TODO 3', note: 'Note for TODO 3' },
+      { id: 4, state: 'active', name: 'TODO 4', note: 'Note for TODO 4' },
+      { id: 5, state: 'active', name: 'TODO 5', note: 'Note for TODO 5' },
+    ],
+  }
+
+  describe('completeItemRequest', () => {
+    it('does not change state (yet)', () => {
+      const action = {
+        type: Item.COMPLETE_ITEM_REQUEST,
+        id: 4,
+      }
+      const actualState = reducer(prevState, action)
+      expect(actualState.items).toMatchObject(prevState.items)
+    })
+  })
+
+  describe('completeItemSuccess', () => {
+    it('removes an item from items array', () => {
+      const action = {
+        type: Item.COMPLETE_ITEM_SUCCESS,
+        id: 4,
+      }
+
+      const actualState = reducer(prevState, action)
+      expect(actualState.items).toMatchObject(
+        [
+          { id: 3, state: 'active',    name: 'TODO 3', note: 'Note for TODO 3' },
+          { id: 4, state: 'completed', name: 'TODO 4', note: 'Note for TODO 4' },
+          { id: 5, state: 'active',    name: 'TODO 5', note: 'Note for TODO 5' },
+        ]
+      )
+    })
+  })
+
+  xdescribe('completeItemFailure', () => {
+    it('sets error info', () => {
+      // TODO: Tests will be here
+    })
+  })
+})
+
+describe('item reducer: uncompleteItem()', () => {
+  const prevState = {
+    items: [
+      { id: 3, state: 'active',    name: 'TODO 3', note: 'Note for TODO 3' },
+      { id: 4, state: 'completed', name: 'TODO 4', note: 'Note for TODO 4' },
+      { id: 5, state: 'active',    name: 'TODO 5', note: 'Note for TODO 5' },
+    ],
+  }
+
+  describe('uncompleteItemRequest', () => {
+    it('does not change state (yet)', () => {
+      const action = {
+        type: Item.UNCOMPLETE_ITEM_REQUEST,
+        id: 4,
+      }
+      const actualState = reducer(prevState, action)
+      expect(actualState.items).toMatchObject(prevState.items)
+    })
+  })
+
+  describe('uncompleteItemSuccess', () => {
+    it('removes an item from items array', () => {
+      const action = {
+        type: Item.UNCOMPLETE_ITEM_SUCCESS,
+        id: 4,
+      }
+
+      const actualState = reducer(prevState, action)
+      expect(actualState.items).toMatchObject(
+        [
+          { id: 3, state: 'active', name: 'TODO 3', note: 'Note for TODO 3' },
+          { id: 4, state: 'active', name: 'TODO 4', note: 'Note for TODO 4' },
+          { id: 5, state: 'active', name: 'TODO 5', note: 'Note for TODO 5' },
+        ]
+      )
+    })
+  })
+
+  xdescribe('uncompleteItemFailure', () => {
+    it('sets error info', () => {
+      // TODO: Tests will be here
+    })
+  })
+})
