@@ -11,7 +11,11 @@ describe('Item', () => {
     const item = { name: 'Name:Empty', note: 'Note:Empty' }
     const onSave = jest.fn()
     const onDelete = jest.fn()
-    const itemComponent = mount(<Item item={item} onSave={onSave} onDelete={onDelete} />)
+    const onComplete = jest.fn()
+    const onUncomplete = jest.fn()
+    const itemComponent = mount(
+      <Item item={item} onSave={onSave} onDelete={onDelete} onComplete={onComplete} onUncomplete={onUncomplete} />
+    )
     expect(itemComponent.find('.item').exists()).toBeTruthy()
     expect(itemComponent.find('.item-summary').exists()).toBeFalsy()
     expect(itemComponent.find('.item-detail').exists()).toBeTruthy()
@@ -21,7 +25,11 @@ describe('Item', () => {
     const item = { id: 9, name: 'Name:Nine', note: 'Note:Nine' }
     const onSave = jest.fn()
     const onDelete = jest.fn()
-    const itemComponent = mount(<Item item={item} onSave={onSave} onDelete={onDelete} />)
+    const onComplete = jest.fn()
+    const onUncomplete = jest.fn()
+    const itemComponent = mount(
+      <Item item={item} onSave={onSave} onDelete={onDelete} onComplete={onComplete} onUncomplete={onUncomplete} />
+    )
     expect(itemComponent.find('.item').exists()).toBeTruthy()
     expect(itemComponent.find('.item-summary').exists()).toBeTruthy()
     expect(itemComponent.find('.item-detail').exists()).toBeFalsy()

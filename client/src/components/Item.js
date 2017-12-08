@@ -8,35 +8,58 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel'
 import FormControl from 'react-bootstrap/lib/FormControl'
 import Glyphicon from 'react-bootstrap/lib/Glyphicon'
 
-const ItemToolbox = props => {
-  // FIXME: Adjust layout later
-  const style = {
-    display: 'inline-block',
-    color: 'gray',
-    verticalAlign: 'middle',
-    paddingTop: '5px',
-    paddingLeft: '10px',
-    fontSize: '20px',
+class ItemToolbox extends Component {
+  handleOnComplete = (event) => {
+    const { item, onComplete } = this.props
+    event.preventDefault()
+    onComplete(item.id)
+    return false
   }
-  return (
-    <div className='pull-right' style={style}>
-      <Glyphicon glyph='unchecked' />
-    </div>
-  )
+
+  handleOnUncomplete = (event) => {
+    const { item, onUncomplete } = this.props
+    event.preventDefault()
+    onUncomplete(item.id)
+    return false
+  }
+
+  render() {
+    // FIXME: Adjust layout later
+    const { item } = this.props
+    const style = {
+      display: 'inline-block',
+      color: 'gray',
+      verticalAlign: 'middle',
+      paddingTop: '5px',
+      paddingLeft: '10px',
+      fontSize: '20px',
+    }
+    return (
+      <div className='pull-right' style={style}>
+        {item.state === 'active' ? (
+          <Glyphicon glyph='unchecked' onClick={this.handleOnComplete} />
+        ) : (
+          <Glyphicon glyph='check' onClick={this.handleOnUncomplete} />
+        )}
+      </div>
+    )
+  }
 }
 
 class ItemSummary extends Component {
   static propTypes = {
     item: PropTypes.object.isRequired,
     onToggle: PropTypes.func.isRequired,
+    onComplete: PropTypes.func.isRequired,
+    onUncomplete: PropTypes.func.isRequired,
   }
 
   render() {
-    const { item, onToggle } = this.props
+    const { item, onToggle, onComplete, onUncomplete } = this.props
     const header = (
       <div className='item-summary'>
         <span>{item.name}</span>
-        <ItemToolbox />
+        <ItemToolbox item={item} onComplete={onComplete} onUncomplete={onUncomplete} />
       </div>
     )
     const style = { 'textAlign': 'left', width: '80%', marginBottom: 0 }
@@ -53,6 +76,8 @@ class ItemDetail extends Component {
     onToggle: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
+    onComplete: PropTypes.func.isRequired,
+    onUncomplete: PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -83,11 +108,11 @@ class ItemDetail extends Component {
   }
 
   render() {
-    const { item } = this.props
+    const { item, onComplete, onUncomplete } = this.props
     const header = (
       <div className='item-detail'>
         <span style={{ display: 'inline-block' }}>{item.name}</span>
-        <ItemToolbox />
+        <ItemToolbox item={item} onComplete={onComplete} onUncomplete={onUncomplete} />
       </div>
     )
     const style = { 'textAlign': 'left', width: '80%', marginBottom: 0 }
@@ -123,6 +148,8 @@ class Item extends Component {
     item: PropTypes.object.isRequired,
     onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
+    onComplete: PropTypes.func.isRequired,
+    onUncomplete: PropTypes.func.isRequired,
   }
 
   state = {
@@ -143,14 +170,26 @@ class Item extends Component {
   }
 
   render() {
-    const { item, onSave, onDelete } = this.props
+    const { item, onSave, onDelete, onComplete, onUncomplete } = this.props
     const { status } = this.state
     return (
       <div className='item'>
         {status === 'summary' ? (
-          <ItemSummary item={item} onToggle={this.handleToggle} />
+          <ItemSummary
+            item={item}
+            onToggle={this.handleToggle}
+            onComplete={onComplete}
+            onUncomplete={onUncomplete}
+          />
         ) : (
-          <ItemDetail item={item} onToggle={this.handleToggle} onSave={onSave} onDelete={onDelete} />
+          <ItemDetail
+            item={item}
+            onToggle={this.handleToggle}
+            onSave={onSave}
+            onDelete={onDelete}
+            onComplete={onComplete}
+            onUncomplete={onUncomplete}
+          />
         )}
       </div>
     )

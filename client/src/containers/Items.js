@@ -26,12 +26,13 @@ class ItemList extends Component {
   }
 
   buildItemComponents = () => {
-    const { items, searchQuery, onCreate, onUpdate, onDelete } = this.props
+    const { items, searchQuery, onCreate, onUpdate, onDelete, onComplete, onUncomplete } = this.props
     const filteredItems = items.filter(this.createSearchFilter(searchQuery))
     return filteredItems.map((item) => {
       const key = item.id || 'empty'
       const onSave = item.id ? onUpdate : onCreate
-      return <Item key={key} item={item} onSave={onSave} onDelete={onDelete} />
+      const itemProps = { item, onSave, onDelete, onComplete, onUncomplete }
+      return <Item key={key} {...itemProps} />
     })
   }
 
@@ -76,6 +77,16 @@ class Items extends Component {
     deleteItem(id)
   }
 
+  onComplete = (item) => {
+    const { completeItem } = this.props.itemActions
+    completeItem(item)
+  }
+
+  onUncomplete = (item) => {
+    const { uncompleteItem } = this.props.itemActions
+    uncompleteItem(item)
+  }
+
   onSearchQueryChange = (searchQuery) => {
     this.setState({ searchQuery })
   }
@@ -94,6 +105,8 @@ class Items extends Component {
           onCreate={this.onCreate}
           onUpdate={this.onUpdate}
           onDelete={this.onDelete}
+          onComplete={this.onComplete}
+          onUncomplete={this.onUncomplete}
         />
       </div>
     )
