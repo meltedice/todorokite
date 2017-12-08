@@ -107,10 +107,15 @@ class ItemDetail extends Component {
     onDelete(item)
   }
 
+  handleHeaderClick = (event) => {
+    const { onToggle } = this.props
+    onToggle(event)
+  }
+
   render() {
     const { item, onComplete, onUncomplete } = this.props
     const header = (
-      <div className='item-detail'>
+      <div className='item-detail' onClick={this.handleHeaderClick}>
         <span style={{ display: 'inline-block' }}>{item.name}</span>
         <ItemToolbox item={item} onComplete={onComplete} onUncomplete={onUncomplete} />
       </div>
