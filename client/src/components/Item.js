@@ -11,14 +11,14 @@ import Glyphicon from 'react-bootstrap/lib/Glyphicon'
 class ItemToolbox extends Component {
   handleOnComplete = (event) => {
     const { item, onComplete } = this.props
-    event.preventDefault()
+    event.stopPropagation() // Stop onToggle
     onComplete(item.id)
     return false
   }
 
   handleOnUncomplete = (event) => {
     const { item, onUncomplete } = this.props
-    event.preventDefault()
+    event.stopPropagation() // Stop onToggle
     onUncomplete(item.id)
     return false
   }
@@ -62,7 +62,7 @@ class ItemSummary extends Component {
         <ItemToolbox item={item} onComplete={onComplete} onUncomplete={onUncomplete} />
       </div>
     )
-    const style = { 'textAlign': 'left', width: '80%', marginBottom: 0 }
+    const style = { 'textAlign': 'left', marginBottom: 0 }
     const panelProps = { header, style, onClick: onToggle }
     return (
       <Panel {...panelProps} />
@@ -115,7 +115,7 @@ class ItemDetail extends Component {
         <ItemToolbox item={item} onComplete={onComplete} onUncomplete={onUncomplete} />
       </div>
     )
-    const style = { 'textAlign': 'left', width: '80%', marginBottom: 0 }
+    const style = { 'textAlign': 'left', marginBottom: 0 }
     const panelProps = { header, style }
     return (
       <Panel {...panelProps}>
