@@ -157,3 +157,75 @@ export const deleteItemFailure = (error) => {
     error,
   }
 }
+
+export const completeItem = (id) => dispatch => {
+  dispatch(completeItemRequest(id))
+  return api.put(`/v1/items/${id}/completion`).then(
+    response => {
+      dispatch(completeItemSuccess(id))
+    }
+  ).catch(
+    error => {
+      console.error(error)
+      dispatch(completeItemFailure(error))
+    }
+  )
+}
+
+export const completeItemRequest = (id) => {
+  return {
+    type: Item.COMPLETE_ITEM_REQUEST,
+    id,
+  }
+}
+
+export const completeItemSuccess = (id) => {
+  return {
+    type: Item.COMPLETE_ITEM_SUCCESS,
+    id,
+  }
+}
+
+export const completeItemFailure = (id, error) => {
+  return {
+    type: Item.COMPLETE_ITEM_FAILURE,
+    id,
+    error,
+  }
+}
+
+export const uncompleteItem = (id) => dispatch => {
+  dispatch(uncompleteItemRequest(id))
+  return api.delete(`/v1/items/${id}/completion`).then(
+    response => {
+      dispatch(uncompleteItemSuccess(id))
+    }
+  ).catch(
+    error => {
+      console.error(error)
+      dispatch(uncompleteItemFailure(id, error))
+    }
+  )
+}
+
+export const uncompleteItemRequest = (id) => {
+  return {
+    type: Item.UNCOMPLETE_ITEM_REQUEST,
+    id,
+  }
+}
+
+export const uncompleteItemSuccess = (id) => {
+  return {
+    type: Item.UNCOMPLETE_ITEM_SUCCESS,
+    id,
+  }
+}
+
+export const uncompleteItemFailure = (id, error) => {
+  return {
+    type: Item.UNCOMPLETE_ITEM_FAILURE,
+    id,
+    error,
+  }
+}

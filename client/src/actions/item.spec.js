@@ -12,8 +12,8 @@ const mockStore = configureMockStore(middlewares)
 describe('getAllItems', () => {
   beforeEach(() => {
     mock.onGet('/v1/items').reply(200, [
-      { id: 1, name: 'TODO 1', note: 'Note for TODO 1' },
-      { id: 2, name: 'TODO 2', note: 'Note for TODO 2' },
+      { id: 1, state: 'active', name: 'TODO 1', note: 'Note for TODO 1' },
+      { id: 2, state: 'active', name: 'TODO 2', note: 'Note for TODO 2' },
     ])
   })
 
@@ -29,8 +29,8 @@ describe('getAllItems', () => {
       {
         type: Item.GET_ALL_ITEMS_SUCCESS,
         items: [
-          { id: 1, name: 'TODO 1', note: 'Note for TODO 1' },
-          { id: 2, name: 'TODO 2', note: 'Note for TODO 2' },
+          { id: 1, state: 'active', name: 'TODO 1', note: 'Note for TODO 1' },
+          { id: 2, state: 'active', name: 'TODO 2', note: 'Note for TODO 2' },
         ],
       },
     ]
@@ -48,7 +48,7 @@ describe('createItem', () => {
       { name: 'TODO 3', note: 'Note for TODO 3' }
     ).reply(
       200,
-      { id: 3, name: 'TODO 3', note: 'Note for TODO 3' }
+      { id: 3, state: 'active', name: 'TODO 3', note: 'Note for TODO 3' }
     )
   })
 
@@ -64,7 +64,7 @@ describe('createItem', () => {
       },
       {
         type: Item.CREATE_ITEM_SUCCESS,
-        item: { id: 3, name: 'TODO 3', note: 'Note for TODO 3' },
+        item: { id: 3, state: 'active', name: 'TODO 3', note: 'Note for TODO 3' },
       },
     ]
     const store = mockStore({ items: [] })
@@ -82,7 +82,7 @@ describe('updateItem', () => {
       { id: 2, name: 'TODO 2 (mod)', note: 'Note for TODO 2 (mod)' }
     ).reply(
       201,
-      { id: 2, name: 'TODO 2 (mod)', note: 'Note for TODO 2 (mod)' }
+      { id: 2, state: 'active', name: 'TODO 2 (mod)', note: 'Note for TODO 2 (mod)' }
     )
   })
 
@@ -98,7 +98,7 @@ describe('updateItem', () => {
       },
       {
         type: Item.UPDATE_ITEM_SUCCESS,
-        item: { id: 2, name: 'TODO 2 (mod)', note: 'Note for TODO 2 (mod)' },
+        item: { id: 2, state: 'active', name: 'TODO 2 (mod)', note: 'Note for TODO 2 (mod)' },
       },
     ]
     const store = mockStore({ items: [] })
@@ -131,6 +131,60 @@ describe('deleteItem', () => {
     ]
     const store = mockStore({ items: [] })
     store.dispatch(actions.deleteItem(4)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+})
+
+describe('completeItem', () => {
+  beforeEach(() => {
+    mock.onPut(`/v1/items/4/completion`).reply(204)
+  })
+
+  afterEach(() => {
+    mock.reset()
+  })
+
+  it('sends request then receive response', () => {
+    const expectedActions = [
+      {
+        type: Item.COMPLETE_ITEM_REQUEST,
+        id: 4,
+      },
+      {
+        type: Item.COMPLETE_ITEM_SUCCESS,
+        id: 4,
+      },
+    ]
+    const store = mockStore({ items: [] })
+    store.dispatch(actions.completeItem(4)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+})
+
+describe('uncompleteItem', () => {
+  beforeEach(() => {
+    mock.onDelete(`/v1/items/4/completion`).reply(204)
+  })
+
+  afterEach(() => {
+    mock.reset()
+  })
+
+  it('sends request then receive response', () => {
+    const expectedActions = [
+      {
+        type: Item.UNCOMPLETE_ITEM_REQUEST,
+        id: 4,
+      },
+      {
+        type: Item.UNCOMPLETE_ITEM_SUCCESS,
+        id: 4,
+      },
+    ]
+    const store = mockStore({ items: [] })
+    store.dispatch(actions.uncompleteItem(4)).then(() => {
       expect(store.getActions()).toEqual(expectedActions)
     })
   })

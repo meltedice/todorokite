@@ -6,14 +6,14 @@ class Item < ApplicationRecord
 
   aasm column: 'state' do
     state :active, initial: true
-    state :done
+    state :completed
 
     event :complete do
-      transitions from: :active, to: :done
+      transitions from: :active, to: :completed
     end
 
     event :uncomplete do
-      transitions from: :done, to: :active
+      transitions from: :completed, to: :active
     end
   end
 end

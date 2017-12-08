@@ -10,10 +10,7 @@ const getAllItemsRequest = (state, action) => {
 
 export const getAllItemsSuccess = (state, action) => {
   const { items } = action
-  const nextItems = items.map(item => {
-    return { ...item, visible: true }
-  })
-  return { ...state, items: nextItems }
+  return { ...state, items }
 }
 
 export const getAllItemsFailure = (state, action) => {
@@ -28,7 +25,7 @@ const addEmptyItem = (state, action) => {
   const { items } = state
   const emptyItemExists = !!items.find(item => !item.id)
   if (emptyItemExists) { return state }
-  const emptyItem = { name: '', note: '', visible: true }
+  const emptyItem = { state: 'active', name: '', note: '' }
   return { ...state, items: items.concat(emptyItem) }
 }
 
@@ -40,7 +37,7 @@ const createItemRequest = (state, action) => {
 const createItemSuccess = (state, action) => {
   const { items } = state
   const { item } = action
-  const nextItem = { ...item, visible: true }
+  const nextItem = { ...item }
   const nextState = {
     ...state,
     items: items.filter(i => i.id).concat(nextItem),
@@ -61,7 +58,7 @@ const updateItemRequest = (state, action) => {
 const updateItemSuccess = (state, action) => {
   const { items } = state
   const { item } = action
-  const nextItem = { ...item, visible: true }
+  const nextItem = { ...item }
   const nextState = {
     ...state,
     items: items.map(i => i.id === item.id ? nextItem : i)
@@ -94,6 +91,48 @@ const deleteItemFailure = (state, action) => {
   return state
 }
 
+const completeItemRequest = (state, action) => {
+  return state
+}
+
+const completeItemSuccess = (state, action) => {
+  const { items } = state
+  const { id } = action
+  const nextItems = items.map(item => {
+    if (item.id !== id) return item
+    return { ...item, state: 'completed' }
+  })
+  return {
+    ...state,
+    items: nextItems,
+  }
+}
+
+const completeItemFailure = (state, action) => {
+  return state
+}
+
+const uncompleteItemRequest = (state, action) => {
+  return state
+}
+
+const uncompleteItemSuccess = (state, action) => {
+  const { items } = state
+  const { id } = action
+  const nextItems = items.map(item => {
+    if (item.id !== id) return item
+    return { ...item, state: 'active' }
+  })
+  return {
+    ...state,
+    items: nextItems,
+  }
+}
+
+const uncompleteItemFailure = (state, action) => {
+  return state
+}
+
 export default function item(state = initialState, action) {
   switch (action.type) {
     case Item.GET_ALL_ITEMS_REQUEST:
@@ -122,6 +161,18 @@ export default function item(state = initialState, action) {
       return deleteItemSuccess(state, action)
     case Item.DELETE_ITEM_FAILURE:
       return deleteItemFailure(state, action)
+    case Item.COMPLETE_ITEM_REQUEST:
+      return completeItemRequest(state, action)
+    case Item.COMPLETE_ITEM_SUCCESS:
+      return completeItemSuccess(state, action)
+    case Item.COMPLETE_ITEM_FAILURE:
+      return completeItemFailure(state, action)
+    case Item.UNCOMPLETE_ITEM_REQUEST:
+      return uncompleteItemRequest(state, action)
+    case Item.UNCOMPLETE_ITEM_SUCCESS:
+      return uncompleteItemSuccess(state, action)
+    case Item.UNCOMPLETE_ITEM_FAILURE:
+      return uncompleteItemFailure(state, action)
     default:
       return state
   }
