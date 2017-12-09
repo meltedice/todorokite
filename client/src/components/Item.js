@@ -24,13 +24,11 @@ class ItemToolbox extends Component {
   }
 
   render() {
-    // FIXME: Adjust layout later
     const { item } = this.props
     const style = {
       display: 'inline-block',
       color: 'gray',
       verticalAlign: 'middle',
-      paddingTop: '5px',
       paddingLeft: '10px',
       fontSize: '20px',
     }
