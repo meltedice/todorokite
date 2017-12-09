@@ -5,12 +5,15 @@ import { connect } from 'react-redux'
 import Navbar from 'react-bootstrap/lib/Navbar'
 import Nav from 'react-bootstrap/lib/Nav'
 import NavItem from 'react-bootstrap/lib/NavItem'
+import NavDropdown from 'react-bootstrap/lib/NavDropdown'
+import MenuItem from 'react-bootstrap/lib/MenuItem'
+import Glyphicon from 'react-bootstrap/lib/Glyphicon'
 import { Link } from 'react-router-dom'
-import { LinkContainer } from 'react-router-bootstrap'
 
 import * as item from '../actions/item'
 
-// TODO: Fix design...
+import './Header.sass'
+
 class Header extends Component {
   static propTypes = {
     itemActions: PropTypes.object.isRequired,
@@ -18,8 +21,6 @@ class Header extends Component {
 
   handleAddEmptyItem = (event) => {
     const { addEmptyItem } = this.props.itemActions
-    console.log('Header handleAddEmptyItem:')
-    console.log(event)
     addEmptyItem()
   }
 
@@ -30,16 +31,16 @@ class Header extends Component {
           <Navbar.Brand>
             <Link to='/'>Todorokite</Link>
           </Navbar.Brand>
-          <Navbar.Toggle />
-        </Navbar.Header>
-        <Navbar.Collapse>
-          <Nav pullRight>
-            <NavItem eventKey={1} onClick={this.handleAddEmptyItem}>New</NavItem>
-            <LinkContainer to='/'>
-              <NavItem eventKey={2}>Dummy</NavItem>
-            </LinkContainer>
+
+          <Nav className='navbar-right'>
+            <NavDropdown eventKey={1} title='User' id='user-nav-dropdown'>
+              <MenuItem eventKey={1.1} >Signout</MenuItem>
+            </NavDropdown>
+            <NavItem eventKey={2} onClick={this.handleAddEmptyItem} style={{ verticalAlign: 'top' }}>
+              <Glyphicon glyph='plus-sign' style={{ color: 'white' }} /> New
+            </NavItem>
           </Nav>
-        </Navbar.Collapse>
+        </Navbar.Header>
       </Navbar>
     )
   }
