@@ -7,11 +7,11 @@ RSpec.describe V1::Items::CompletionsController, type: :controller do
   end
 
   let(:active_item_attributes) {
-    { state: 'active', name: 'my name', note: 'my note' }
+    build(:active_item).attributes
   }
 
   let(:completed_item_attributes) {
-    { state: 'completed', name: 'my name', note: 'my note' }
+    build(:completed_item).attributes
   }
 
   describe "PUT #update" do
