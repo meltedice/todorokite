@@ -33,13 +33,11 @@ RSpec.describe V1::ItemsController, type: :controller do
   # Item. As you add validations to Item, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    # skip("Add a hash of attributes valid for your model")
-    { name: 'my name', note: 'my note' }
+    build(:active_item).attributes
   }
 
   let(:invalid_attributes) {
-    # skip("Add a hash of attributes invalid for your model")
-    { name: nil, note: nil }
+    build(:invalid_item).attributes
   }
 
   # This should return the minimal set of values that should be in the session
@@ -50,7 +48,7 @@ RSpec.describe V1::ItemsController, type: :controller do
   describe "GET #index" do
     it "returns a success response" do
       Item.create! valid_attributes
-      get :index, params: {}, session: valid_session
+      get :index, params: {}
       expect(response).to be_success
     end
   end
@@ -58,7 +56,7 @@ RSpec.describe V1::ItemsController, type: :controller do
   describe "GET #show" do
     it "returns a success response" do
       item = Item.create! valid_attributes
-      get :show, params: {id: item.to_param}, session: valid_session
+      get :show, params: {id: item.to_param}
       expect(response).to be_success
     end
   end
@@ -67,13 +65,13 @@ RSpec.describe V1::ItemsController, type: :controller do
     context "with valid params" do
       it "creates a new Item" do
         expect {
-          post :create, params: {item: valid_attributes}, session: valid_session
+          post :create, params: {item: valid_attributes}
         }.to change(Item, :count).by(1)
       end
 
       it "renders a JSON response with the new item" do
 
-        post :create, params: {item: valid_attributes}, session: valid_session
+        post :create, params: {item: valid_attributes}
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
         expect(response.location).to eq(v1_item_url(Item.last))
@@ -83,7 +81,7 @@ RSpec.describe V1::ItemsController, type: :controller do
     context "with invalid params" do
       it "renders a JSON response with errors for the new item" do
 
-        post :create, params: {item: invalid_attributes}, session: valid_session
+        post :create, params: {item: invalid_attributes}
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -99,7 +97,7 @@ RSpec.describe V1::ItemsController, type: :controller do
 
       it "updates the requested item" do
         item = Item.create! valid_attributes
-        put :update, params: {id: item.to_param, item: new_attributes}, session: valid_session
+        put :update, params: {id: item.to_param, item: new_attributes}
         item.reload
         # skip("Add assertions for updated state")
         expect(item.name).to eq('my NEW name')
@@ -109,7 +107,7 @@ RSpec.describe V1::ItemsController, type: :controller do
       it "renders a JSON response with the item" do
         item = Item.create! valid_attributes
 
-        put :update, params: {id: item.to_param, item: valid_attributes}, session: valid_session
+        put :update, params: {id: item.to_param, item: valid_attributes}
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq('application/json')
       end
@@ -119,7 +117,7 @@ RSpec.describe V1::ItemsController, type: :controller do
       it "renders a JSON response with errors for the item" do
         item = Item.create! valid_attributes
 
-        put :update, params: {id: item.to_param, item: invalid_attributes}, session: valid_session
+        put :update, params: {id: item.to_param, item: invalid_attributes}
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -130,7 +128,7 @@ RSpec.describe V1::ItemsController, type: :controller do
     it "destroys the requested item" do
       item = Item.create! valid_attributes
       expect {
-        delete :destroy, params: {id: item.to_param}, session: valid_session
+        delete :destroy, params: {id: item.to_param}
       }.to change(Item, :count).by(-1)
     end
   end
