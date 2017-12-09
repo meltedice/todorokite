@@ -1,16 +1,7 @@
 # Items
 
-Item.seed(:id) do |s|
-  s.name = 'TODO A'
-  s.note = 'TODO A Note'
-end
-
-Item.seed(:id) do |s|
-  s.name = 'TODO B'
-  s.note = 'TODO B Note'
-end
-
-Item.seed(:id) do |s|
-  s.name = 'TODO C'
-  s.note = 'TODO C Note'
-end
+Item.seed_once(:id,
+  { state: 'active', name: 'TODO A', note: 'TODO A Note' },
+  { state: 'active', name: 'TODO B', note: 'TODO B Note' },
+  { state: 'active', name: 'TODO C', note: 'TODO C Note' },
+)
