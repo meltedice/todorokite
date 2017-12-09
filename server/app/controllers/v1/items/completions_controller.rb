@@ -1,7 +1,6 @@
 class V1::Items::CompletionsController < ApplicationController
-  before_action :set_item, only: [:update, :destroy]
-
   def update
+    @item = Item.find(params[:item_id])
     if @item.complete!
       head :ok
     else
@@ -10,6 +9,7 @@ class V1::Items::CompletionsController < ApplicationController
   end
 
   def destroy
+    @item = Item.find(params[:item_id])
     if @item.uncomplete!
       head :ok
     else
@@ -19,7 +19,4 @@ class V1::Items::CompletionsController < ApplicationController
 
   private
 
-  def set_item
-    @item = Item.find(params[:item_id])
-  end
 end
