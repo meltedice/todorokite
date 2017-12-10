@@ -5,6 +5,8 @@ import {
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
+import Panel from 'react-bootstrap/lib/Panel'
+
 import * as item from '../actions/item'
 import Header from './Header'
 import Items from './Items'
@@ -25,6 +27,9 @@ class App extends Component {
       <div id='todorokite'>
         <Header />
         <div id='todorokite-body'>
+          <div className='notifications' style={{ display: 'none' }}>
+            <Panel bsStyle='info' header='Message will be here...' />
+          </div>
           <Switch>
             <Route exact path='/' render={props => <Redirect to='/items' />} />
             <Route exact path='/items' component={Items} />
