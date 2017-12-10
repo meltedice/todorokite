@@ -97,7 +97,7 @@ class Items extends Component {
     // FIXME: Change below more testable
     const searchQuery = this.state.searchQuery || this.props.searchQuery
     return (
-      <div style={{ marginTop: '55px' }}>
+      <div>
         <Searchbar onChange={this.onSearchQueryChange} />
         <ItemList
           items={items}

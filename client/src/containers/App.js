@@ -22,12 +22,14 @@ class App extends Component {
 
   render() {
     return (
-      <div id='todorokite' className='todorokite'>
+      <div id='todorokite'>
         <Header />
-        <Switch>
-          <Route exact path='/' render={props => <Redirect to='/items' />} />
-          <Route exact path='/items' component={Items} />
-        </Switch>
+        <div id='todorokite-body'>
+          <Switch>
+            <Route exact path='/' render={props => <Redirect to='/items' />} />
+            <Route exact path='/items' component={Items} />
+          </Switch>
+        </div>
       </div>
     )
   }
