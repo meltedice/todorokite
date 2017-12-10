@@ -10,6 +10,24 @@ const rootReducer = combineReducers({
   routing: routerReducer,
 })
 
+const clearNotificationsActionTypes = [
+  '@@router/LOCATION_CHANGE',
+  'GET_ALL_ITEMS_REQUEST',
+]
+
 export default (state, action) => {
+  if (clearNotificationsActionTypes.includes(action.type)) {
+    // Clear notifications
+    state = {
+      ...state,
+      item: {
+        ...state.item,
+        isSuccess: null,
+        isFailure: null,
+      },
+      message: { messages: [] },
+    }
+  }
+
   return rootReducer(state, action)
 }
