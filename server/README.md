@@ -1,24 +1,94 @@
-# README
+# Todorokite server
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Todorokite to-do list's server side API app
 
-Things you may want to cover:
+## Installing / Getting started
 
-* Ruby version
+A quick introduction of the minimal setup you need to get a hello world up & running.
 
-* System dependencies
+```shell
+cd server/
+rbenv install 2.4.2
+bundle install
+rails db:create
+rails db:migrate
+rails db:seed_fu
+rails s -p 3010
+```
 
-* Configuration
+1. Install ruby 2.4.2
+2. Install gems
+3. Setup database
+4. Start rails server
 
-* Database creation
+## Developing
 
-* Database initialization
+### Built With
 
-* How to run the test suite
+- aasm
+- pg
+- rack-cors
+- rails
 
-* Services (job queues, cache servers, search engines, etc.)
+### Prerequisites
 
-* Deployment instructions
+- rbenv
+- ruby-build
+- postgresql
 
-* ...
+### Setting up Dev
+
+Here's a brief intro about what a developer must do in order to start developing
+the project further:
+
+```shell
+git clone git@github.com:meltedice/todorokite.git
+cd todorokite/server/
+bundle install
+rails db:create
+rails db:migrate
+rails db:seed_fu
+```
+
+And state what happens step-by-step. If there is any virtual environment, local server or database feeder needed, explain here.
+
+### Deploying / Publishing
+
+TODO
+
+## Versioning
+
+TODO
+
+## Tests
+
+```shell
+rails spec
+```
+
+## Style guide
+
+TODO
+
+## Api Reference
+
+See followings:
+* [API document (markdown)](https://github.com/meltedice/todorokite/blob/master/docs/api.md)
+* [API document (html)](https://github.com/meltedice/todorokite/blob/master/docs/api.html)
+
+## Database
+
+```shell
+brew install postgresql
+brew services start postgresql
+```
+
+```shell
+psql -d postgres
+# CREATE ROLE todorokite WITH CREATEDB LOGIN PASSWORD 'Quah5yek2h';
+# \q
+```
+
+## Licensing
+
+[MIT](https://github.com/meltedice/todorokite/blob/master/LICENSE)
