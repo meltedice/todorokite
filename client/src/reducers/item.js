@@ -2,23 +2,24 @@ import * as Item from '../constants/Item'
 
 const initialState = {
   items: [],
+  isLoading: true,
+  isLoaded: false,
+  error: null,
 }
 
 const getAllItemsRequest = (state, action) => {
-  return state
+  return { ...state, isLoading: true, error: null }
 }
 
 export const getAllItemsSuccess = (state, action) => {
   const { items } = action
-  return { ...state, items }
+  return { ...state, items, isLoading: false, isLoaded: true }
 }
 
 export const getAllItemsFailure = (state, action) => {
   const { error } = action
-  // TODO: Set error info
-  console.log('getAllItemsFailure: error')
   console.log(error)
-  return state
+  return { ...state, isLoading: false, error }
 }
 
 const addEmptyItem = (state, action) => {

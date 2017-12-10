@@ -93,11 +93,13 @@ class Items extends Component {
 
   render() {
     // FIXME: Display items on better design/layout
-    const { items } = this.props.item
+    const { items, isLoading } = this.props.item
     // FIXME: Change below more testable
     const searchQuery = this.state.searchQuery || this.props.searchQuery
-    return (
-      <div style={{ marginTop: '55px' }}>
+    return isLoading ? (
+      <div>Loading...</div>
+    ) : (
+      <div>
         <Searchbar onChange={this.onSearchQueryChange} />
         <ItemList
           items={items}

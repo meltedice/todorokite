@@ -19,6 +19,11 @@ class Header extends Component {
     itemActions: PropTypes.object.isRequired,
   }
 
+  handleReloadItems = (event) => {
+    const { getAllItems } = this.props.itemActions
+    getAllItems()
+  }
+
   handleAddEmptyItem = (event) => {
     const { addEmptyItem } = this.props.itemActions
     addEmptyItem()
@@ -36,7 +41,10 @@ class Header extends Component {
             <NavDropdown eventKey={1} title='User' id='user-nav-dropdown'>
               <MenuItem eventKey={1.1} >Signout</MenuItem>
             </NavDropdown>
-            <NavItem eventKey={2} onClick={this.handleAddEmptyItem} style={{ verticalAlign: 'top' }}>
+            <NavItem eventKey={2} onClick={this.handleReloadItems} style={{ verticalAlign: 'top' }}>
+              <Glyphicon glyph='refresh' style={{ color: 'white' }} />
+            </NavItem>
+            <NavItem eventKey={3} onClick={this.handleAddEmptyItem} style={{ verticalAlign: 'top' }}>
               <Glyphicon glyph='plus-sign' style={{ color: 'white' }} /> New
             </NavItem>
           </Nav>

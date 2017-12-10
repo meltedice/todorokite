@@ -9,7 +9,7 @@ export const api = axios.create({
     'Content-type': 'application/json',
     'X-Requested-With': 'XMLHttpRequest', // This makes rails to respond in JSON
   },
-  timeout: 5000, // [ms]
+  timeout: 20000, // [ms]
   responseType: 'json',
 })
 
