@@ -75,8 +75,7 @@ class Items extends Component {
 
   onDelete = (item) => {
     const { deleteItem } = this.props.itemActions
-    const { id } = item
-    deleteItem(id)
+    deleteItem(item)
   }
 
   onComplete = (item) => {

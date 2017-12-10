@@ -82,22 +82,22 @@ const updateItemFailure = (state, action) => {
 }
 
 const deleteItemRequest = (state, action) => {
-  // const { id } = action
+  // const { item } = action
   return { ...state, isRequesting: true, isSuccess: null, isFailure: null }
 }
 
 const deleteItemSuccess = (state, action) => {
   const { items } = state
-  const { id } = action
+  const { item } = action
   const nextState = {
     ...state,
-    items: items.filter(i => i.id !== id)
+    items: items.filter(i => i.id !== item.id)
   }
   return nextState
 }
 
 const deleteItemFailure = (state, action) => {
-  const { error } = action
+  const { error } = action // item
   return { ...state, error, isRequesting: false, isSuccess: false, isFailure: true }
 }
 
@@ -107,10 +107,10 @@ const completeItemRequest = (state, action) => {
 
 const completeItemSuccess = (state, action) => {
   const { items } = state
-  const { id } = action
-  const nextItems = items.map(item => {
-    if (item.id !== id) return item
-    return { ...item, state: 'completed' }
+  const { item } = action
+  const nextItems = items.map(i => {
+    if (i.id !== item.id) return i
+    return { ...i, state: 'completed' }
   })
   return {
     ...state,
@@ -129,10 +129,10 @@ const uncompleteItemRequest = (state, action) => {
 
 const uncompleteItemSuccess = (state, action) => {
   const { items } = state
-  const { id } = action
-  const nextItems = items.map(item => {
-    if (item.id !== id) return item
-    return { ...item, state: 'active' }
+  const { item } = action
+  const nextItems = items.map(i => {
+    if (i.id !== item.id) return i
+    return { ...i, state: 'active' }
   })
   return {
     ...state,

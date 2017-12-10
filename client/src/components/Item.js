@@ -12,14 +12,14 @@ class ItemToolbox extends Component {
   handleOnComplete = (event) => {
     const { item, onComplete } = this.props
     event.stopPropagation() // Stop onToggle
-    onComplete(item.id)
+    onComplete(item)
     return false
   }
 
   handleOnUncomplete = (event) => {
     const { item, onUncomplete } = this.props
     event.stopPropagation() // Stop onToggle
-    onUncomplete(item.id)
+    onUncomplete(item)
     return false
   }
 
