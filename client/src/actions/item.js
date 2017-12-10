@@ -62,7 +62,7 @@ export const createItem = (item) => dispatch => {
   ).catch(
     error => {
       console.error(error)
-      dispatch(createItemFailure(error))
+      dispatch(createItemFailure(item, error))
     }
   )
 }
@@ -81,9 +81,10 @@ export const createItemSuccess = (item) => {
   }
 }
 
-export const createItemFailure = (error) => {
+export const createItemFailure = (item, error) => {
   return {
     type: Item.CREATE_ITEM_FAILURE,
+    item,
     error,
   }
 }
@@ -97,7 +98,7 @@ export const updateItem = (item) => dispatch => {
   ).catch(
     error => {
       console.error(error)
-      dispatch(updateItemFailure(error))
+      dispatch(updateItemFailure(item, error))
     }
   )
 }
@@ -116,116 +117,117 @@ export const updateItemSuccess = (item) => {
   }
 }
 
-export const updateItemFailure = (error) => {
+export const updateItemFailure = (item, error) => {
   return {
     type: Item.UPDATE_ITEM_FAILURE,
+    item,
     error,
   }
 }
 
-export const deleteItem = (id) => dispatch => {
-  dispatch(deleteItemRequest(id))
-  return api.delete(`/v1/items/${id}`).then(
+export const deleteItem = (item) => dispatch => {
+  dispatch(deleteItemRequest(item))
+  return api.delete(`/v1/items/${item.id}`).then(
     response => {
-      dispatch(deleteItemSuccess(id))
+      dispatch(deleteItemSuccess(item))
     }
   ).catch(
     error => {
       console.error(error)
-      dispatch(deleteItemFailure(error))
+      dispatch(deleteItemFailure(item, error))
     }
   )
 }
 
-export const deleteItemRequest = (id) => {
+export const deleteItemRequest = (item) => {
   return {
     type: Item.DELETE_ITEM_REQUEST,
-    id,
+    item,
   }
 }
 
-export const deleteItemSuccess = (id) => {
+export const deleteItemSuccess = (item) => {
   return {
     type: Item.DELETE_ITEM_SUCCESS,
-    id,
+    item,
   }
 }
 
-export const deleteItemFailure = (error) => {
+export const deleteItemFailure = (item, error) => {
   return {
     type: Item.DELETE_ITEM_FAILURE,
-    error,
+    item,
   }
 }
 
-export const completeItem = (id) => dispatch => {
-  dispatch(completeItemRequest(id))
-  return api.put(`/v1/items/${id}/completion`).then(
+export const completeItem = (item) => dispatch => {
+  dispatch(completeItemRequest(item))
+  return api.put(`/v1/items/${item.id}/completion`).then(
     response => {
-      dispatch(completeItemSuccess(id))
+      dispatch(completeItemSuccess(item))
     }
   ).catch(
     error => {
       console.error(error)
-      dispatch(completeItemFailure(error))
+      dispatch(completeItemFailure(item, error))
     }
   )
 }
 
-export const completeItemRequest = (id) => {
+export const completeItemRequest = (item) => {
   return {
     type: Item.COMPLETE_ITEM_REQUEST,
-    id,
+    item,
   }
 }
 
-export const completeItemSuccess = (id) => {
+export const completeItemSuccess = (item) => {
   return {
     type: Item.COMPLETE_ITEM_SUCCESS,
-    id,
+    item,
   }
 }
 
-export const completeItemFailure = (id, error) => {
+export const completeItemFailure = (item, error) => {
   return {
     type: Item.COMPLETE_ITEM_FAILURE,
-    id,
+    item,
     error,
   }
 }
 
-export const uncompleteItem = (id) => dispatch => {
-  dispatch(uncompleteItemRequest(id))
-  return api.delete(`/v1/items/${id}/completion`).then(
+export const uncompleteItem = (item) => dispatch => {
+  dispatch(uncompleteItemRequest(item))
+  return api.delete(`/v1/items/${item.id}/completion`).then(
     response => {
-      dispatch(uncompleteItemSuccess(id))
+      dispatch(uncompleteItemSuccess(item))
     }
   ).catch(
     error => {
       console.error(error)
-      dispatch(uncompleteItemFailure(id, error))
+      dispatch(uncompleteItemFailure(item, error))
     }
   )
 }
 
-export const uncompleteItemRequest = (id) => {
+export const uncompleteItemRequest = (item) => {
   return {
     type: Item.UNCOMPLETE_ITEM_REQUEST,
-    id,
+    item,
   }
 }
 
-export const uncompleteItemSuccess = (id) => {
+export const uncompleteItemSuccess = (item) => {
   return {
     type: Item.UNCOMPLETE_ITEM_SUCCESS,
-    id,
+    item,
   }
 }
 
-export const uncompleteItemFailure = (id, error) => {
+export const uncompleteItemFailure = (item, error) => {
   return {
     type: Item.UNCOMPLETE_ITEM_FAILURE,
-    id,
+    item,
     error,
   }
 }

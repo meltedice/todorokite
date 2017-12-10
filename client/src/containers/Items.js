@@ -5,6 +5,8 @@ import { connect } from 'react-redux'
 import Panel from 'react-bootstrap/lib/Panel'
 
 import * as item from '../actions/item'
+import * as message from '../actions/message'
+import { buildErrorMessage } from '../utils/errorMessage'
 import Item from '../components/Item'
 import Searchbar from '../components/Searchbar'
 
@@ -50,6 +52,7 @@ class Items extends Component {
   static propTypes = {
     item: PropTypes.object.isRequired,
     itemActions: PropTypes.object.isRequired,
+    messageActions: PropTypes.object.isRequired,
     searchQuery: PropTypes.string,
   }
 
@@ -73,8 +76,7 @@ class Items extends Component {
 
   onDelete = (item) => {
     const { deleteItem } = this.props.itemActions
-    const { id } = item
-    deleteItem(id)
+    deleteItem(item)
   }
 
   onComplete = (item) => {
@@ -89,6 +91,20 @@ class Items extends Component {
 
   onSearchQueryChange = (searchQuery) => {
     this.setState({ searchQuery })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { messageActions } = nextProps
+    const { isRequesting, isSuccess, isFailure, error } = nextProps.item
+    if (isRequesting) {
+      messageActions.clearMessages()
+    } else {
+      if (isSuccess === true) {
+        // messageActions.clearMessages()
+      } else if (isFailure === true) {
+        messageActions.addMessage(buildErrorMessage(error))
+      }
+    }
   }
 
   render() {
@@ -121,6 +137,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   itemActions: bindActionCreators(item, dispatch),
+  messageActions: bindActionCreators(message, dispatch),
 })
 
 export default connect(

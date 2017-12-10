@@ -3,6 +3,12 @@ import * as Item from '../constants/Item'
 
 const initialState = {
   items: [],
+  isLoading: true,
+  isLoaded: false,
+  isRequesting: false,
+  isSuccess: null,
+  isFailure: null,
+  error: null,
 }
 
 describe('item reducer: getAllItems()', () => {
@@ -144,7 +150,7 @@ describe('item reducer: deleteItem()', () => {
     it('does not change state (yet)', () => {
       const action = {
         type: Item.DELETE_ITEM_REQUEST,
-        id: 4,
+        item: { id: 4, state: 'active', name: 'TODO 4', note: 'Note for TODO 4' },
       }
       const actualState = reducer(prevState, action)
       expect(actualState.items).toMatchObject(prevState.items)
@@ -155,7 +161,7 @@ describe('item reducer: deleteItem()', () => {
     it('removes an item from items array', () => {
       const action = {
         type: Item.DELETE_ITEM_SUCCESS,
-        id: 4,
+        item: { id: 4, state: 'active', name: 'TODO 4', note: 'Note for TODO 4' },
       }
 
       const actualState = reducer(prevState, action)
@@ -188,7 +194,7 @@ describe('item reducer: completeItem()', () => {
     it('does not change state (yet)', () => {
       const action = {
         type: Item.COMPLETE_ITEM_REQUEST,
-        id: 4,
+        item: { id: 4, state: 'active', name: 'TODO 4', note: 'Note for TODO 4' },
       }
       const actualState = reducer(prevState, action)
       expect(actualState.items).toMatchObject(prevState.items)
@@ -196,10 +202,10 @@ describe('item reducer: completeItem()', () => {
   })
 
   describe('completeItemSuccess', () => {
-    it('removes an item from items array', () => {
+    it('completes a TODO item', () => {
       const action = {
         type: Item.COMPLETE_ITEM_SUCCESS,
-        id: 4,
+        item: { id: 4, state: 'active', name: 'TODO 4', note: 'Note for TODO 4' },
       }
 
       const actualState = reducer(prevState, action)
@@ -233,7 +239,7 @@ describe('item reducer: uncompleteItem()', () => {
     it('does not change state (yet)', () => {
       const action = {
         type: Item.UNCOMPLETE_ITEM_REQUEST,
-        id: 4,
+        item: { id: 4, state: 'completed', name: 'TODO 4', note: 'Note for TODO 4' },
       }
       const actualState = reducer(prevState, action)
       expect(actualState.items).toMatchObject(prevState.items)
@@ -241,10 +247,10 @@ describe('item reducer: uncompleteItem()', () => {
   })
 
   describe('uncompleteItemSuccess', () => {
-    it('removes an item from items array', () => {
+    it('uncompletes a TODO item', () => {
       const action = {
         type: Item.UNCOMPLETE_ITEM_SUCCESS,
-        id: 4,
+        item: { id: 4, state: 'completed', name: 'TODO 4', note: 'Note for TODO 4' },
       }
 
       const actualState = reducer(prevState, action)

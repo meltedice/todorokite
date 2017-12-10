@@ -4,11 +4,20 @@ const initialState = {
   items: [],
   isLoading: true,
   isLoaded: false,
+  isRequesting: false,
+  isSuccess: null,
+  isFailure: null,
   error: null,
 }
 
 const getAllItemsRequest = (state, action) => {
-  return { ...state, isLoading: true, error: null }
+  return {
+    ...state,
+    isLoading: true,
+    isSuccess: null,
+    isFailure: null,
+    error: null,
+  }
 }
 
 export const getAllItemsSuccess = (state, action) => {
@@ -17,8 +26,10 @@ export const getAllItemsSuccess = (state, action) => {
 }
 
 export const getAllItemsFailure = (state, action) => {
-  const { error } = action
-  console.log(error)
+  const error = {
+    error: action.error,
+    type: 'getAll',
+  }
   return { ...state, isLoading: false, error }
 }
 
@@ -32,7 +43,7 @@ const addEmptyItem = (state, action) => {
 
 const createItemRequest = (state, action) => {
   // const { item } = action
-  return state
+  return { ...state, isRequesting: true, isSuccess: null, isFailure: null }
 }
 
 const createItemSuccess = (state, action) => {
@@ -47,13 +58,17 @@ const createItemSuccess = (state, action) => {
 }
 
 const createItemFailure = (state, action) => {
-  // const { error } = action
-  return state
+  const error = {
+    error: action.error,
+    item: action.item,
+    type: 'create',
+  }
+  return { ...state, error, isRequesting: false, isSuccess: false, isFailure: true }
 }
 
 const updateItemRequest = (state, action) => {
   // const { item } = action
-  return state
+  return { ...state, isRequesting: true, isSuccess: null, isFailure: null }
 }
 
 const updateItemSuccess = (state, action) => {
@@ -68,40 +83,48 @@ const updateItemSuccess = (state, action) => {
 }
 
 const updateItemFailure = (state, action) => {
-  // const { error } = action
-  return state
+  const error = {
+    error: action.error,
+    item: action.item,
+    type: 'update',
+  }
+  return { ...state, error, isRequesting: false, isSuccess: false, isFailure: true }
 }
 
 const deleteItemRequest = (state, action) => {
-  // const { id } = action
-  return state
+  // const { item } = action
+  return { ...state, isRequesting: true, isSuccess: null, isFailure: null }
 }
 
 const deleteItemSuccess = (state, action) => {
   const { items } = state
-  const { id } = action
+  const { item } = action
   const nextState = {
     ...state,
-    items: items.filter(i => i.id !== id)
+    items: items.filter(i => i.id !== item.id)
   }
   return nextState
 }
 
 const deleteItemFailure = (state, action) => {
-  // const { error } = action
-  return state
+  const error = {
+    error: action.error,
+    item: action.item,
+    type: 'delete',
+  }
+  return { ...state, error, isRequesting: false, isSuccess: false, isFailure: true }
 }
 
 const completeItemRequest = (state, action) => {
-  return state
+  return { ...state, isRequesting: true, isSuccess: null, isFailure: null }
 }
 
 const completeItemSuccess = (state, action) => {
   const { items } = state
-  const { id } = action
-  const nextItems = items.map(item => {
-    if (item.id !== id) return item
-    return { ...item, state: 'completed' }
+  const { item } = action
+  const nextItems = items.map(i => {
+    if (i.id !== item.id) return i
+    return { ...i, state: 'completed' }
   })
   return {
     ...state,
@@ -110,19 +133,24 @@ const completeItemSuccess = (state, action) => {
 }
 
 const completeItemFailure = (state, action) => {
-  return state
+  const error = {
+    error: action.error,
+    item: action.item,
+    type: 'complete',
+  }
+  return { ...state, error, isRequesting: false, isSuccess: false, isFailure: true }
 }
 
 const uncompleteItemRequest = (state, action) => {
-  return state
+  return { ...state, isRequesting: true, isSuccess: null, isFailure: null }
 }
 
 const uncompleteItemSuccess = (state, action) => {
   const { items } = state
-  const { id } = action
-  const nextItems = items.map(item => {
-    if (item.id !== id) return item
-    return { ...item, state: 'active' }
+  const { item } = action
+  const nextItems = items.map(i => {
+    if (i.id !== item.id) return i
+    return { ...i, state: 'active' }
   })
   return {
     ...state,
@@ -131,7 +159,12 @@ const uncompleteItemSuccess = (state, action) => {
 }
 
 const uncompleteItemFailure = (state, action) => {
-  return state
+  const error = {
+    error: action.error,
+    item: action.item,
+    type: 'uncomplete',
+  }
+  return { ...state, error, isRequesting: false, isSuccess: false, isFailure: true }
 }
 
 export default function item(state = initialState, action) {

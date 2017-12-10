@@ -19,7 +19,7 @@ class Searchbar extends Component {
 
   render() {
     return (
-      <div className='searchbar' style={{ marginTop: '60px', textAlign: 'left' }}>
+      <div className='searchbar' style={{ textAlign: 'left' }}>
         <FormGroup>
           <InputGroup>
             <InputGroup.Addon>

@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import * as item from '../actions/item'
+import Notificationbar from './/Notificationbar'
 import Header from './Header'
 import Items from './Items'
 
@@ -25,6 +26,7 @@ class App extends Component {
       <div id='todorokite'>
         <Header />
         <div id='todorokite-body'>
+          <Notificationbar />
           <Switch>
             <Route exact path='/' render={props => <Redirect to='/items' />} />
             <Route exact path='/items' component={Items} />
@@ -40,7 +42,6 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatch,
   itemActions: bindActionCreators(item, dispatch),
 })
 

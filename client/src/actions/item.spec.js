@@ -122,15 +122,16 @@ describe('deleteItem', () => {
     const expectedActions = [
       {
         type: Item.DELETE_ITEM_REQUEST,
-        id: 4,
+        item: { id: 4 },
       },
       {
         type: Item.DELETE_ITEM_SUCCESS,
-        id: 4,
+        item: { id: 4 },
       },
     ]
     const store = mockStore({ items: [] })
-    store.dispatch(actions.deleteItem(4)).then(() => {
+    const item = { id: 4 }
+    store.dispatch(actions.deleteItem(item)).then(() => {
       expect(store.getActions()).toEqual(expectedActions)
     })
   })
@@ -149,15 +150,16 @@ describe('completeItem', () => {
     const expectedActions = [
       {
         type: Item.COMPLETE_ITEM_REQUEST,
-        id: 4,
+        item: { id: 4 },
       },
       {
         type: Item.COMPLETE_ITEM_SUCCESS,
-        id: 4,
+        item: { id: 4 },
       },
     ]
     const store = mockStore({ items: [] })
-    store.dispatch(actions.completeItem(4)).then(() => {
+    const targetItem = { id: 4 }
+    store.dispatch(actions.completeItem(targetItem)).then(() => {
       expect(store.getActions()).toEqual(expectedActions)
     })
   })
@@ -176,15 +178,16 @@ describe('uncompleteItem', () => {
     const expectedActions = [
       {
         type: Item.UNCOMPLETE_ITEM_REQUEST,
-        id: 4,
+        item: { id: 4 },
       },
       {
         type: Item.UNCOMPLETE_ITEM_SUCCESS,
-        id: 4,
+        item: { id: 4 },
       },
     ]
     const store = mockStore({ items: [] })
-    store.dispatch(actions.uncompleteItem(4)).then(() => {
+    const targetItem = { id: 4 }
+    store.dispatch(actions.uncompleteItem(targetItem)).then(() => {
       expect(store.getActions()).toEqual(expectedActions)
     })
   })
