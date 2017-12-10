@@ -3,6 +3,9 @@ import * as Item from '../constants/Item'
 
 const initialState = {
   items: [],
+  isLoading: true,
+  isLoaded: false,
+  error: null,
 }
 
 describe('item reducer: getAllItems()', () => {
