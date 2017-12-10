@@ -26,8 +26,10 @@ export const getAllItemsSuccess = (state, action) => {
 }
 
 export const getAllItemsFailure = (state, action) => {
-  const { error } = action
-  console.log(error)
+  const error = {
+    error: action.error,
+    type: 'getAll',
+  }
   return { ...state, isLoading: false, error }
 }
 
@@ -56,7 +58,11 @@ const createItemSuccess = (state, action) => {
 }
 
 const createItemFailure = (state, action) => {
-  const { error } = action
+  const error = {
+    error: action.error,
+    item: action.item,
+    type: 'create',
+  }
   return { ...state, error, isRequesting: false, isSuccess: false, isFailure: true }
 }
 
@@ -77,7 +83,11 @@ const updateItemSuccess = (state, action) => {
 }
 
 const updateItemFailure = (state, action) => {
-  const { error } = action
+  const error = {
+    error: action.error,
+    item: action.item,
+    type: 'update',
+  }
   return { ...state, error, isRequesting: false, isSuccess: false, isFailure: true }
 }
 
@@ -97,7 +107,11 @@ const deleteItemSuccess = (state, action) => {
 }
 
 const deleteItemFailure = (state, action) => {
-  const { error } = action // item
+  const error = {
+    error: action.error,
+    item: action.item,
+    type: 'delete',
+  }
   return { ...state, error, isRequesting: false, isSuccess: false, isFailure: true }
 }
 
@@ -119,7 +133,11 @@ const completeItemSuccess = (state, action) => {
 }
 
 const completeItemFailure = (state, action) => {
-  const { error } = action
+  const error = {
+    error: action.error,
+    item: action.item,
+    type: 'complete',
+  }
   return { ...state, error, isRequesting: false, isSuccess: false, isFailure: true }
 }
 
@@ -141,7 +159,11 @@ const uncompleteItemSuccess = (state, action) => {
 }
 
 const uncompleteItemFailure = (state, action) => {
-  const { error } = action
+  const error = {
+    error: action.error,
+    item: action.item,
+    type: 'uncomplete',
+  }
   return { ...state, error, isRequesting: false, isSuccess: false, isFailure: true }
 }
 

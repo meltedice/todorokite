@@ -6,6 +6,7 @@ import Panel from 'react-bootstrap/lib/Panel'
 
 import * as item from '../actions/item'
 import * as message from '../actions/message'
+import { buildErrorMessage } from '../utils/errorMessage'
 import Item from '../components/Item'
 import Searchbar from '../components/Searchbar'
 
@@ -94,18 +95,14 @@ class Items extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { messageActions } = nextProps
-    const { isRequesting, isSuccess, isFailure } = nextProps.item
-    // console.log('isRequesting, isSuccess, isFailure')
-    // console.log(isRequesting)
-    // console.log(isSuccess)
-    // console.log(isFailure)
+    const { isRequesting, isSuccess, isFailure, error } = nextProps.item
     if (isRequesting) {
       messageActions.clearMessages()
     } else {
       if (isSuccess === true) {
         // messageActions.clearMessages()
       } else if (isFailure === true) {
-        messageActions.addMessage({ style: 'danger', text: 'エラーが発生しました...' })
+        messageActions.addMessage(buildErrorMessage(error))
       }
     }
   }
