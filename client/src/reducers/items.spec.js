@@ -5,6 +5,9 @@ const initialState = {
   items: [],
   isLoading: true,
   isLoaded: false,
+  isRequesting: false,
+  isSuccess: null,
+  isFailure: null,
   error: null,
 }
 

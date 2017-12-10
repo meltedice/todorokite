@@ -4,11 +4,20 @@ const initialState = {
   items: [],
   isLoading: true,
   isLoaded: false,
+  isRequesting: false,
+  isSuccess: null,
+  isFailure: null,
   error: null,
 }
 
 const getAllItemsRequest = (state, action) => {
-  return { ...state, isLoading: true, error: null }
+  return {
+    ...state,
+    isLoading: true,
+    isSuccess: null,
+    isFailure: null,
+    error: null,
+  }
 }
 
 export const getAllItemsSuccess = (state, action) => {
@@ -32,7 +41,7 @@ const addEmptyItem = (state, action) => {
 
 const createItemRequest = (state, action) => {
   // const { item } = action
-  return state
+  return { ...state, isRequesting: true, isSuccess: null, isFailure: null }
 }
 
 const createItemSuccess = (state, action) => {
@@ -47,13 +56,13 @@ const createItemSuccess = (state, action) => {
 }
 
 const createItemFailure = (state, action) => {
-  // const { error } = action
-  return state
+  const { error } = action
+  return { ...state, error, isRequesting: false, isSuccess: false, isFailure: true }
 }
 
 const updateItemRequest = (state, action) => {
   // const { item } = action
-  return state
+  return { ...state, isRequesting: true, isSuccess: null, isFailure: null }
 }
 
 const updateItemSuccess = (state, action) => {
@@ -68,13 +77,13 @@ const updateItemSuccess = (state, action) => {
 }
 
 const updateItemFailure = (state, action) => {
-  // const { error } = action
-  return state
+  const { error } = action
+  return { ...state, error, isRequesting: false, isSuccess: false, isFailure: true }
 }
 
 const deleteItemRequest = (state, action) => {
   // const { id } = action
-  return state
+  return { ...state, isRequesting: true, isSuccess: null, isFailure: null }
 }
 
 const deleteItemSuccess = (state, action) => {
@@ -88,12 +97,12 @@ const deleteItemSuccess = (state, action) => {
 }
 
 const deleteItemFailure = (state, action) => {
-  // const { error } = action
-  return state
+  const { error } = action
+  return { ...state, error, isRequesting: false, isSuccess: false, isFailure: true }
 }
 
 const completeItemRequest = (state, action) => {
-  return state
+  return { ...state, isRequesting: true, isSuccess: null, isFailure: null }
 }
 
 const completeItemSuccess = (state, action) => {
@@ -110,11 +119,12 @@ const completeItemSuccess = (state, action) => {
 }
 
 const completeItemFailure = (state, action) => {
-  return state
+  const { error } = action
+  return { ...state, error, isRequesting: false, isSuccess: false, isFailure: true }
 }
 
 const uncompleteItemRequest = (state, action) => {
-  return state
+  return { ...state, isRequesting: true, isSuccess: null, isFailure: null }
 }
 
 const uncompleteItemSuccess = (state, action) => {
@@ -131,7 +141,8 @@ const uncompleteItemSuccess = (state, action) => {
 }
 
 const uncompleteItemFailure = (state, action) => {
-  return state
+  const { error } = action
+  return { ...state, error, isRequesting: false, isSuccess: false, isFailure: true }
 }
 
 export default function item(state = initialState, action) {
