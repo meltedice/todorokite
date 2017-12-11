@@ -4,8 +4,6 @@ Todorokite to-do list's server side API app
 
 ## Installing / Getting started
 
-A quick introduction of the minimal setup you need to get a hello world up & running.
-
 ```shell
 cd server/
 rbenv install 2.4.2
@@ -38,9 +36,6 @@ rails s -p 3010
 
 ### Setting up Dev
 
-Here's a brief intro about what a developer must do in order to start developing
-the project further:
-
 ```shell
 git clone git@github.com:meltedice/todorokite.git
 cd todorokite/server/
@@ -49,8 +44,6 @@ rails db:create
 rails db:migrate
 rails db:seed_fu
 ```
-
-And state what happens step-by-step. If there is any virtual environment, local server or database feeder needed, explain here.
 
 ### Deploying / Publishing
 
@@ -70,18 +63,22 @@ rails spec
 
 TODO
 
-## Api Reference
+## API Reference
 
 See followings:
-* [API document (markdown)](https://github.com/meltedice/todorokite/blob/master/docs/api.md)
-* [API document (html)](https://github.com/meltedice/todorokite/blob/master/docs/api.html)
+* [API reference (markdown)](https://github.com/meltedice/todorokite/blob/master/docs/api.md)
+* [API reference (html)](https://github.com/meltedice/todorokite/blob/master/docs/api.html)
 
 ## Database
+
+Install Postgresql
 
 ```shell
 brew install postgresql
 brew services start postgresql
 ```
+
+Add a user `todorokite`
 
 ```shell
 psql -d postgres

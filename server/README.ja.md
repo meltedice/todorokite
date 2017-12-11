@@ -1,10 +1,8 @@
 # Todorokite server
 
-Todorokite to-do list's server side API app
+TODO アプリ Todorokite の Rails 製サーバーサイドアプリケーション
 
 ## Installing / Getting started
-
-A quick introduction of the minimal setup you need to get a hello world up & running.
 
 ```shell
 cd server/
@@ -16,30 +14,27 @@ rails db:seed_fu
 rails s -p 3010
 ```
 
-1. Install ruby 2.4.2
-2. Install gems
-3. Setup database
-4. Start rails server
+1. ruby 2.4.2 をインストール
+2. gem をインストール
+3. データベースの設定
+4. rails server を起動
 
-## Developing
+## 開発
 
-### Built With
+### 主な使用技術
 
 - aasm
 - pg
 - rack-cors
 - rails
 
-### Prerequisites
+### 事前インストールの必要なツール
 
 - rbenv
 - ruby-build
 - postgresql
 
 ### Setting up Dev
-
-Here's a brief intro about what a developer must do in order to start developing
-the project further:
 
 ```shell
 git clone git@github.com:meltedice/todorokite.git
@@ -49,8 +44,6 @@ rails db:create
 rails db:migrate
 rails db:seed_fu
 ```
-
-And state what happens step-by-step. If there is any virtual environment, local server or database feeder needed, explain here.
 
 ### Deploying / Publishing
 
@@ -70,18 +63,22 @@ rails spec
 
 TODO
 
-## Api Reference
+## API Reference
 
-See followings:
-* [API document (markdown)](https://github.com/meltedice/todorokite/blob/master/docs/api.md)
-* [API document (html)](https://github.com/meltedice/todorokite/blob/master/docs/api.html)
+API リファレンス:
+* [API リファレンス (markdown)](https://github.com/meltedice/todorokite/blob/master/docs/api.ja.md)
+* [API リファレンス (html)](https://github.com/meltedice/todorokite/blob/master/docs/api.ja.html)
 
-## Database
+## データベース
+
+Postgresql のインストール
 
 ```shell
 brew install postgresql
 brew services start postgresql
 ```
+
+Postgresql にユーザー `todorokite` を追加
 
 ```shell
 psql -d postgres

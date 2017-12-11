@@ -1,12 +1,14 @@
 Todorokite
 ====
 
+[Japanese](./README.ja.md)
+
 A to-do list example app with Rails and React.
 
-## Structure
+## Directory structure
 
+* client/ React frontend app
 * docs/   API documents
-* client/ JavaScript frontend app
 * server/ Rails server side app
 
 ## Installing / Getting started
@@ -17,13 +19,6 @@ See followings:
 * [Server README.md](./server/README.md)
 
 ## Developing
-
-Choose following convinations:
-
-* Rails server app + React frontend app
-* Mock API server + React frontend app
-
-### Rails server app + React frontend app
 
 Start rails server
 
@@ -39,19 +34,12 @@ cd client/
 BROWSER=none yarn start
 ```
 
-### Mock API server + React frontend app
+### Mock API server + React frontend app (Use mock API server instead of Rails server)
 
-Start mock API server
+Start mock API server by following command, instead of `rails s -p 3010`
 
 ```
 drakov -f docs/api.md --autoOptions -p 3010 --watch --method DELETE --method PUT --method POST
-```
-
-Start frontend app
-
-```
-cd client/
-BROWSER=none yarn start
 ```
 
 ### Built With
@@ -82,15 +70,22 @@ BROWSER=none yarn start
 - rbenv
 - ruby-build
 - postgresql
+- aglio
+- drakov
 
 ### Setting up Dev
 
-```shell
-git clone git@github.com:meltedice/todorokite.git
-```
+Setup database before this section, see below.
 
 ```shell
-cd todorokite/server/
+git clone git@github.com:meltedice/todorokite.git
+cd todorokite/
+```
+
+Install rubygems and setup database.
+
+```shell
+cd server/
 bundle install
 rails db:create
 rails db:migrate
@@ -98,13 +93,20 @@ rails db:seed_fu
 cd ..
 ```
 
+Install node modules
+
 ```shell
-git clone git@github.com:meltedice/todorokite.git
-cd todorokite/client/
+cd client/
 yarn install
+cd ..
 ```
 
-And state what happens step-by-step. If there is any virtual environment, local server or database feeder needed, explain here.
+Install aglio for API documentation
+
+```shell
+npm install -g aglio
+npm install -g drakov
+```
 
 ### Deploying / Publishing
 
@@ -116,28 +118,43 @@ TODO
 
 ## Tests
 
+Rails test
+
 ```shell
 cd server/
 rails spec
 ```
+
+React test
 
 ```shell
 cd client/
 yarn test
 ```
 
-## Api Reference
+## API Reference
 
 See followings:
 * [API document (markdown)](https://github.com/meltedice/todorokite/blob/master/docs/api.md)
 * [API document (html)](https://github.com/meltedice/todorokite/blob/master/docs/api.html)
 
+### Build API Reference
+
+```shell
+aglio -i docs/api.md -o docs/api.html
+aglio -i docs/api.ja.md -o docs/api.ja.html
+```
+
 ## Database
+
+Install Postgresql
 
 ```shell
 brew install postgresql
 brew services start postgresql
 ```
+
+Add a user `todorokite`
 
 ```shell
 psql -d postgres

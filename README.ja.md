@@ -1,69 +1,61 @@
 Todorokite
 ====
 
-A to-do list example app with Rails and React.
+[English](./README.md)
 
-## Structure
+Todorokite は React + Rails を使用した TODO アプリケーションです。
 
-* docs/   API documents
-* client/ JavaScript frontend app
-* server/ Rails server side app
+## ディレクトリ構成
+
+* client/ React のフロントエンドアプリケーション
+* docs/   API ドキュメント
+* server/ Rails のサーバーサイドアプリケーション
 
 ## Installing / Getting started
 
-See followings:
+Client、Server のセットアップについては、それぞれの README.md を参照:
 
-* [Client README.md](./client/README.md)
-* [Server README.md](./server/README.md)
+* [Client README.md](./client/README.ja.md)
+* [Server README.md](./server/README.ja.md)
 
 ## Developing
 
-Choose following convinations:
-
-* Rails server app + React frontend app
-* Mock API server + React frontend app
-
-### Rails server app + React frontend app
-
-Start rails server
+Rails のサーバーサイドアプリケーションを 3010 ポートで起動
 
 ```
 cd server/
 rails s -p 3010
 ```
 
-Start frontend app
+React のフロントエンドアプリケーションを 3011 番ポートで起動
 
 ```
 cd client/
 BROWSER=none yarn start
 ```
 
-### Mock API server + React frontend app
+http://localhost:3011 にアクセス
 
-Start mock API server
+### Mock API server + React frontend app (API をモックにして動作確認する場合)
+
+`rails s -p 3010` の代わりに以下の方法でモックサーバーを 3010 ポートで起動
 
 ```
 drakov -f docs/api.md --autoOptions -p 3010 --watch --method DELETE --method PUT --method POST
 ```
 
-Start frontend app
+http://localhost:3011 にアクセス
 
-```
-cd client/
-BROWSER=none yarn start
-```
+### 主な使用技術
 
-### Built With
-
-#### Server
+#### サーバーサイド
 
 - rails
 - aasm
 - pg
 - rack-cors
 
-#### Client
+#### フロントエンド
 
 - axios
 - create-react-app
@@ -75,22 +67,29 @@ BROWSER=none yarn start
 - redux
 - webpack
 
-### Prerequisites
+### 事前インストールの必要なソフトウェア
 
 - nodenv
 - node-build
 - rbenv
 - ruby-build
 - postgresql
+- aglio
+- drakov
 
-### Setting up Dev
+### 開発環境の設定
 
 ```shell
 git clone git@github.com:meltedice/todorokite.git
+cd todorokite/
 ```
 
+※ 後述の Database の設定を行って todorokite ユーザーでデータベースの作成が可能な状態にしておいてください。
+
+Rails アプリケーションのセットアップ(rubygems のインストル〜データベースの初期化)
+
 ```shell
-cd todorokite/server/
+cd server/
 bundle install
 rails db:create
 rails db:migrate
@@ -98,13 +97,20 @@ rails db:seed_fu
 cd ..
 ```
 
+React アプリケーションのセットアップ(ライブラリのインストール)
+
 ```shell
-git clone git@github.com:meltedice/todorokite.git
-cd todorokite/client/
+cd client/
 yarn install
+cd ..
 ```
 
-And state what happens step-by-step. If there is any virtual environment, local server or database feeder needed, explain here.
+API ドキュメント関係のツールをインストール
+
+```shell
+npm install -g aglio
+npm install -g drakov
+```
 
 ### Deploying / Publishing
 
@@ -116,10 +122,14 @@ TODO
 
 ## Tests
 
+Rails のテスト
+
 ```shell
 cd server/
 rails spec
 ```
+
+React のテスト
 
 ```shell
 cd client/
@@ -134,10 +144,14 @@ See followings:
 
 ## Database
 
+Postgresql のインストール
+
 ```shell
 brew install postgresql
 brew services start postgresql
 ```
+
+Postgresql にユーザー `todorokite` を追加
 
 ```shell
 psql -d postgres
