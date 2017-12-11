@@ -159,6 +159,18 @@ psql -d postgres
 # \q
 ```
 
+## TODO
+
+* [ ] サーバーへデプロイ
+* [ ] Items を sessionStorage に保存してリロードしても内容を保持できるようにする
+* [ ] Items container 周りの名前を再考
+* [ ] ログイン機能
+* [ ] エラー処理周りを詳細に
+* [ ] UI/UX を改善
+* [ ] Items container を component に分割移譲
+* [ ] Jest の snapshot test を導入
+* [ ] API ドキュメントにエラーの場合の情報を追加
+
 ## Licensing
 
 [MIT](https://github.com/meltedice/todorokite/blob/master/LICENSE)

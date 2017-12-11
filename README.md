@@ -162,6 +162,18 @@ psql -d postgres
 # \q
 ```
 
+## TODO
+
+* [ ] Deploy to servers
+* [ ] Use sessionStorage for to-do items
+* [ ] Items container naming...
+* [ ] Signin feature
+* [ ] Improve error handlings
+* [ ] Improve UI/UX
+* [ ] Delegate Items container parts to components
+* [ ] Jest snapshot tests
+* [ ] Add about error response to API documents
+
 ## Licensing
 
 [MIT](https://github.com/meltedice/todorokite/blob/master/LICENSE)
