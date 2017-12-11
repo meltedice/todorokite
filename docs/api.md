@@ -4,7 +4,7 @@ FORMAT: 1A
 
 ## List all to-do items [GET]
 
-`curl -i -H 'Content-type: application/json' -X GET http://localhost:3010/v1/items`
+* `curl -i -H 'Content-type: application/json' -X GET http://localhost:3010/v1/items`
 
 + Response 200 (application/json)
 
@@ -18,7 +18,7 @@ FORMAT: 1A
 
 ## Create a to-do item [POST]
 
-`curl -i -H 'Content-type: application/json' -X POST http://localhost:3010/v1/items -d '{ "name": "TODO 6", "note": "Note for TODO 6" }'`
+* `curl -i -H 'Content-type: application/json' -X POST http://localhost:3010/v1/items -d '{ "name": "TODO 6", "note": "Note for TODO 6" }'`
 
 + Request (application/json)
 
@@ -36,14 +36,14 @@ FORMAT: 1A
           "note": "Note for TODO 6"
         }
 
-## Item [/v1/items/{id}]
+## To-do item [/v1/items/{id}]
 
 + Parameters
     + id: 6 (number) - ID of item
 
 ### Get an item detail [GET]
 
-`curl -i -H 'Content-type: application/json' -X GET http://localhost:3010/v1/items/6`
+* `curl -i -H 'Content-type: application/json' -X GET http://localhost:3010/v1/items/6`
 
 + Response 200 (application/json)
 
@@ -56,7 +56,7 @@ FORMAT: 1A
 
 ### Update an item detail [PUT]
 
-`curl -i -H 'Content-type: application/json' -X PUT http://localhost:3010/v1/items/6 -d '{ "name": "TODO 6 [edit]", "note": "Note for TODO 6 [edit]" }'`
+* `curl -i -H 'Content-type: application/json' -X PUT http://localhost:3010/v1/items/6 -d '{ "name": "TODO 6 [edit]", "note": "Note for TODO 6 [edit]" }'`
 
 + Request (application/json)
 
@@ -84,7 +84,7 @@ FORMAT: 1A
 
 ### Delete an item [DELETE]
 
-`curl -i -H 'Content-type: application/json' -X DELETE http://localhost:3010/v1/items/6`
+* `curl -i -H 'Content-type: application/json' -X DELETE http://localhost:3010/v1/items/6`
 
 + Response 204
 
@@ -95,12 +95,12 @@ FORMAT: 1A
 
 ### Update item state to completed [PUT]
 
-`curl -i -H 'Content-type: application/json' -X PUT http://localhost:3010/v1/items/3/completion`
+* `curl -i -H 'Content-type: application/json' -X PUT http://localhost:3010/v1/items/3/completion`
 
 + Response 201 (application/json)
 
 ### Delete item completed state, update its state to active [DELETE]
 
-`curl -i -H 'Content-type: application/json' -X DELETE http://localhost:3010/v1/items/3/completion`
+* `curl -i -H 'Content-type: application/json' -X DELETE http://localhost:3010/v1/items/3/completion`
 
 + Response 201
