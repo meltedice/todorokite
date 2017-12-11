@@ -1,6 +1,6 @@
 # Todorokite server
 
-Todorokite to-do list's server side API app
+TODO アプリ Todorokite の Rails 製サーバーサイドアプリケーション
 
 ## Installing / Getting started
 
@@ -14,21 +14,21 @@ rails db:seed_fu
 rails s -p 3010
 ```
 
-1. Install ruby 2.4.2
-2. Install gems
-3. Setup database
-4. Start rails server
+1. ruby 2.4.2 をインストール
+2. gem をインストール
+3. データベースの設定
+4. rails server を起動
 
-## Developing
+## 開発
 
-### Built With
+### 主な使用技術
 
 - aasm
 - pg
 - rack-cors
 - rails
 
-### Prerequisites
+### 事前インストールの必要なツール
 
 - rbenv
 - ruby-build
@@ -65,20 +65,20 @@ TODO
 
 ## API Reference
 
-See followings:
-* [API reference (markdown)](https://github.com/meltedice/todorokite/blob/master/docs/api.md)
-* [API reference (html)](https://github.com/meltedice/todorokite/blob/master/docs/api.html)
+API リファレンス:
+* [API リファレンス (markdown)](https://github.com/meltedice/todorokite/blob/master/docs/api.ja.md)
+* [API リファレンス (html)](https://github.com/meltedice/todorokite/blob/master/docs/api.ja.html)
 
-## Database
+## データベース
 
-Install Postgresql
+Postgresql のインストール
 
 ```shell
 brew install postgresql
 brew services start postgresql
 ```
 
-Add a user `todorokite`
+Postgresql にユーザー `todorokite` を追加
 
 ```shell
 psql -d postgres
