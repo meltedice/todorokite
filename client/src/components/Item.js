@@ -132,7 +132,7 @@ class ItemDetail extends Component {
         </FormGroup>
         <div>
           <ButtonToolbar className='pull-left'>
-            <Button onClick={this.handleOnDelete} bsStyle='danger'>
+            <Button onClick={this.handleOnDelete} bsStyle='danger' disabled={!item.id}>
               <Glyphicon glyph='trash' />
             </Button>
           </ButtonToolbar>
