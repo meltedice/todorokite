@@ -2,37 +2,27 @@
   "parser": "babel-eslint",
   "extends": [
     "standard",
-    "standard-react"
-  ],
-  "plugins": [
-    "babel",
-    "react",
-    "promise",
-    "jest"
+    "standard-react",
+    "plugin:flowtype/recommended",
+    "plugin:prettier/recommended",
+    "prettier",
+    "prettier/flowtype",
+    "prettier/react",
+    "prettier/standard"
   ],
   "env": {
     "browser": true,
+    "es6": true,
     "jest": true
   },
-  "globals": {
-    "__DEV__":      false,
-    "__TEST__":     false,
-    "__PROD__":     false,
-    "__COVERAGE__": false
-  },
+  "plugins": [
+    "flowtype"
+  ],
   "rules": {
-    "key-spacing":          "off",
-    "jsx-quotes":           ["warn", "prefer-single"],
-    "max-len":              ["warn", 120, 2],
-    "object-curly-spacing": ["warn", "always"],
-    "no-multi-spaces":      "off",
-    "comma-dangle":         "off",
-    "space-before-function-paren": ["warn", {
-      "anonymous":  "always",
-      "named":      "never",
-      "asyncArrow": "always"
-    }],
-    "react/prop-types": ["warn", { skipUndeclared: true }],
+    "no-undef": "warn",
     "no-unused-vars": "warn",
+    "prefer-const": "warn",
+    "react/prop-types": "off",
+    "react/no-unused-prop-types": "off"
   }
 }
