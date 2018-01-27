@@ -1,13 +1,13 @@
 import * as Message from '../constants/Message'
 
-export const addMessage = (message) => {
+export const addMessage = message => {
   return {
     type: Message.ADD_MESSAGE,
     message,
   }
 }
 
-export const removeMessage = (key) => {
+export const removeMessage = key => {
   return {
     type: Message.REMOVE_MESSAGE,
     key,

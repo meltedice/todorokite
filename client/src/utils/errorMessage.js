@@ -3,7 +3,7 @@
 //   item: Hash,
 //   type: String, // 'getAll', 'create', 'update', 'delete', 'complete', 'uncomplete'
 // }
-export const buildErrorMessage = (_error) => {
+export const buildErrorMessage = _error => {
   // TODO: Add more detailed error messages
   const { error, type, item } = _error
 
@@ -25,7 +25,10 @@ export const buildErrorMessage = (_error) => {
     case 'complete':
       return { style: 'danger', text: `Failed to complete item(id=${item.id})` }
     case 'uncomplete':
-      return { style: 'danger', text: `Failed to uncomplete item(id=${item.id})` }
+      return {
+        style: 'danger',
+        text: `Failed to uncomplete item(id=${item.id})`,
+      }
     default:
       return { style: 'danger', text: `Unknown error occured` }
   }

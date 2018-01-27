@@ -11,7 +11,7 @@ class Searchbar extends Component {
     onChange: PropTypes.func.isRequired,
   }
 
-  handleChange = (event) => {
+  handleChange = event => {
     const { onChange } = this.props
     const value = event.target.value
     onChange(value)
@@ -19,13 +19,13 @@ class Searchbar extends Component {
 
   render() {
     return (
-      <div className='searchbar' style={{ textAlign: 'left' }}>
+      <div className="searchbar" style={{ textAlign: 'left' }}>
         <FormGroup>
           <InputGroup>
             <InputGroup.Addon>
-              <Glyphicon glyph='search' />
+              <Glyphicon glyph="search" />
             </InputGroup.Addon>
-            <FormControl type='text' onChange={this.handleChange} />
+            <FormControl type="text" onChange={this.handleChange} />
           </InputGroup>
         </FormGroup>
       </div>

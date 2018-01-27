@@ -19,12 +19,12 @@ class Header extends Component {
     itemActions: PropTypes.object.isRequired,
   }
 
-  handleReloadItems = (event) => {
+  handleReloadItems = event => {
     const { getAllItems } = this.props.itemActions
     getAllItems()
   }
 
-  handleAddEmptyItem = (event) => {
+  handleAddEmptyItem = event => {
     const { addEmptyItem } = this.props.itemActions
     addEmptyItem()
   }
@@ -34,18 +34,26 @@ class Header extends Component {
       <Navbar inverse fixedTop collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to='/'>Todorokite</Link>
+            <Link to="/">Todorokite</Link>
           </Navbar.Brand>
 
-          <Nav className='navbar-right'>
-            <NavDropdown eventKey={1} title='User' id='user-nav-dropdown'>
-              <MenuItem eventKey={1.1} >Signout</MenuItem>
+          <Nav className="navbar-right">
+            <NavDropdown eventKey={1} title="User" id="user-nav-dropdown">
+              <MenuItem eventKey={1.1}>Signout</MenuItem>
             </NavDropdown>
-            <NavItem eventKey={2} onClick={this.handleReloadItems} style={{ verticalAlign: 'top' }}>
-              <Glyphicon glyph='refresh' style={{ color: 'white' }} />
+            <NavItem
+              eventKey={2}
+              onClick={this.handleReloadItems}
+              style={{ verticalAlign: 'top' }}
+            >
+              <Glyphicon glyph="refresh" style={{ color: 'white' }} />
             </NavItem>
-            <NavItem eventKey={3} onClick={this.handleAddEmptyItem} style={{ verticalAlign: 'top' }}>
-              <Glyphicon glyph='plus-sign' style={{ color: 'white' }} /> New
+            <NavItem
+              eventKey={3}
+              onClick={this.handleAddEmptyItem}
+              style={{ verticalAlign: 'top' }}
+            >
+              <Glyphicon glyph="plus-sign" style={{ color: 'white' }} /> New
             </NavItem>
           </Nav>
         </Navbar.Header>
@@ -54,13 +62,10 @@ class Header extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({})
+const mapStateToProps = state => ({})
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   itemActions: bindActionCreators(item, dispatch),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Header)
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

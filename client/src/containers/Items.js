@@ -12,15 +12,15 @@ import Searchbar from '../components/Searchbar'
 
 // FIXME: Naming...
 class ItemList extends Component {
-  buildSearchKeywords = (searchQuery) => {
+  buildSearchKeywords = searchQuery => {
     if (!searchQuery) return null
     const normalizedQuery = searchQuery.trim().toLowerCase()
     return normalizedQuery.split(/ +/)
   }
 
-  createSearchFilter = (searchQuery) => {
+  createSearchFilter = searchQuery => {
     const keywords = this.buildSearchKeywords(searchQuery)
-    return (item) => {
+    return item => {
       if (!keywords) return true
       const itemName = (item.name || '').toLowerCase()
       return keywords.every(keyword => itemName.includes(keyword))
@@ -28,9 +28,17 @@ class ItemList extends Component {
   }
 
   buildItemComponents = () => {
-    const { items, searchQuery, onCreate, onUpdate, onDelete, onComplete, onUncomplete } = this.props
+    const {
+      items,
+      searchQuery,
+      onCreate,
+      onUpdate,
+      onDelete,
+      onComplete,
+      onUncomplete,
+    } = this.props
     const filteredItems = items.filter(this.createSearchFilter(searchQuery))
-    return filteredItems.map((item) => {
+    return filteredItems.map(item => {
       const key = item.id || 'empty'
       const onSave = item.id ? onUpdate : onCreate
       const itemProps = { item, onSave, onDelete, onComplete, onUncomplete }
@@ -40,7 +48,7 @@ class ItemList extends Component {
 
   render() {
     return (
-      <Panel header='Inbox' style={{ textAlign: 'left' }}>
+      <Panel header="Inbox" style={{ textAlign: 'left' }}>
         {this.buildItemComponents()}
       </Panel>
     )
@@ -60,36 +68,36 @@ class Items extends Component {
     searchQuery: undefined,
   }
 
-  onCreate = (item) => {
+  onCreate = item => {
     const { createItem } = this.props.itemActions
     const { name, note } = item
     const params = { name, note }
     createItem(params)
   }
 
-  onUpdate = (item) => {
+  onUpdate = item => {
     const { updateItem } = this.props.itemActions
     const { id, name, note } = item
     const params = { id, name, note }
     updateItem(params)
   }
 
-  onDelete = (item) => {
+  onDelete = item => {
     const { deleteItem } = this.props.itemActions
     deleteItem(item)
   }
 
-  onComplete = (item) => {
+  onComplete = item => {
     const { completeItem } = this.props.itemActions
     completeItem(item)
   }
 
-  onUncomplete = (item) => {
+  onUncomplete = item => {
     const { uncompleteItem } = this.props.itemActions
     uncompleteItem(item)
   }
 
-  onSearchQueryChange = (searchQuery) => {
+  onSearchQueryChange = searchQuery => {
     this.setState({ searchQuery })
   }
 
@@ -131,16 +139,13 @@ class Items extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   item: state.item,
 })
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   itemActions: bindActionCreators(item, dispatch),
   messageActions: bindActionCreators(message, dispatch),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Items)
+export default connect(mapStateToProps, mapDispatchToProps)(Items)

@@ -11,10 +11,12 @@ const mockStore = configureMockStore(middlewares)
 
 describe('getAllItems', () => {
   beforeEach(() => {
-    mock.onGet('/v1/items').reply(200, [
-      { id: 1, state: 'active', name: 'TODO 1', note: 'Note for TODO 1' },
-      { id: 2, state: 'active', name: 'TODO 2', note: 'Note for TODO 2' },
-    ])
+    mock
+      .onGet('/v1/items')
+      .reply(200, [
+        { id: 1, state: 'active', name: 'TODO 1', note: 'Note for TODO 1' },
+        { id: 2, state: 'active', name: 'TODO 2', note: 'Note for TODO 2' },
+      ])
   })
 
   afterEach(() => {
@@ -43,13 +45,14 @@ describe('getAllItems', () => {
 
 describe('createItem', () => {
   beforeEach(() => {
-    mock.onPost(
-      '/v1/items',
-      { name: 'TODO 3', note: 'Note for TODO 3' }
-    ).reply(
-      200,
-      { id: 3, state: 'active', name: 'TODO 3', note: 'Note for TODO 3' }
-    )
+    mock
+      .onPost('/v1/items', { name: 'TODO 3', note: 'Note for TODO 3' })
+      .reply(200, {
+        id: 3,
+        state: 'active',
+        name: 'TODO 3',
+        note: 'Note for TODO 3',
+      })
   })
 
   afterEach(() => {
@@ -64,7 +67,12 @@ describe('createItem', () => {
       },
       {
         type: Item.CREATE_ITEM_SUCCESS,
-        item: { id: 3, state: 'active', name: 'TODO 3', note: 'Note for TODO 3' },
+        item: {
+          id: 3,
+          state: 'active',
+          name: 'TODO 3',
+          note: 'Note for TODO 3',
+        },
       },
     ]
     const store = mockStore({ items: [] })
@@ -77,13 +85,18 @@ describe('createItem', () => {
 
 describe('updateItem', () => {
   beforeEach(() => {
-    mock.onPut(
-      `/v1/items/2`,
-      { id: 2, name: 'TODO 2 (mod)', note: 'Note for TODO 2 (mod)' }
-    ).reply(
-      201,
-      { id: 2, state: 'active', name: 'TODO 2 (mod)', note: 'Note for TODO 2 (mod)' }
-    )
+    mock
+      .onPut(`/v1/items/2`, {
+        id: 2,
+        name: 'TODO 2 (mod)',
+        note: 'Note for TODO 2 (mod)',
+      })
+      .reply(201, {
+        id: 2,
+        state: 'active',
+        name: 'TODO 2 (mod)',
+        note: 'Note for TODO 2 (mod)',
+      })
   })
 
   afterEach(() => {
@@ -98,11 +111,20 @@ describe('updateItem', () => {
       },
       {
         type: Item.UPDATE_ITEM_SUCCESS,
-        item: { id: 2, state: 'active', name: 'TODO 2 (mod)', note: 'Note for TODO 2 (mod)' },
+        item: {
+          id: 2,
+          state: 'active',
+          name: 'TODO 2 (mod)',
+          note: 'Note for TODO 2 (mod)',
+        },
       },
     ]
     const store = mockStore({ items: [] })
-    const params = { id: 2, name: 'TODO 2 (mod)', note: 'Note for TODO 2 (mod)' }
+    const params = {
+      id: 2,
+      name: 'TODO 2 (mod)',
+      note: 'Note for TODO 2 (mod)',
+    }
     store.dispatch(actions.updateItem(params)).then(() => {
       expect(store.getActions()).toEqual(expectedActions)
     })

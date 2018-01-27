@@ -36,7 +36,9 @@ export const getAllItemsFailure = (state, action) => {
 const addEmptyItem = (state, action) => {
   const { items } = state
   const emptyItemExists = !!items.find(item => !item.id)
-  if (emptyItemExists) { return state }
+  if (emptyItemExists) {
+    return state
+  }
   const emptyItem = { state: 'active', name: '', note: '' }
   return { ...state, items: items.concat(emptyItem) }
 }
@@ -63,7 +65,13 @@ const createItemFailure = (state, action) => {
     item: action.item,
     type: 'create',
   }
-  return { ...state, error, isRequesting: false, isSuccess: false, isFailure: true }
+  return {
+    ...state,
+    error,
+    isRequesting: false,
+    isSuccess: false,
+    isFailure: true,
+  }
 }
 
 const updateItemRequest = (state, action) => {
@@ -77,7 +85,7 @@ const updateItemSuccess = (state, action) => {
   const nextItem = { ...item }
   const nextState = {
     ...state,
-    items: items.map(i => i.id === item.id ? nextItem : i)
+    items: items.map(i => (i.id === item.id ? nextItem : i)),
   }
   return nextState
 }
@@ -88,7 +96,13 @@ const updateItemFailure = (state, action) => {
     item: action.item,
     type: 'update',
   }
-  return { ...state, error, isRequesting: false, isSuccess: false, isFailure: true }
+  return {
+    ...state,
+    error,
+    isRequesting: false,
+    isSuccess: false,
+    isFailure: true,
+  }
 }
 
 const deleteItemRequest = (state, action) => {
@@ -101,7 +115,7 @@ const deleteItemSuccess = (state, action) => {
   const { item } = action
   const nextState = {
     ...state,
-    items: items.filter(i => i.id !== item.id)
+    items: items.filter(i => i.id !== item.id),
   }
   return nextState
 }
@@ -112,7 +126,13 @@ const deleteItemFailure = (state, action) => {
     item: action.item,
     type: 'delete',
   }
-  return { ...state, error, isRequesting: false, isSuccess: false, isFailure: true }
+  return {
+    ...state,
+    error,
+    isRequesting: false,
+    isSuccess: false,
+    isFailure: true,
+  }
 }
 
 const completeItemRequest = (state, action) => {
@@ -138,7 +158,13 @@ const completeItemFailure = (state, action) => {
     item: action.item,
     type: 'complete',
   }
-  return { ...state, error, isRequesting: false, isSuccess: false, isFailure: true }
+  return {
+    ...state,
+    error,
+    isRequesting: false,
+    isSuccess: false,
+    isFailure: true,
+  }
 }
 
 const uncompleteItemRequest = (state, action) => {
@@ -164,7 +190,13 @@ const uncompleteItemFailure = (state, action) => {
     item: action.item,
     type: 'uncomplete',
   }
-  return { ...state, error, isRequesting: false, isSuccess: false, isFailure: true }
+  return {
+    ...state,
+    error,
+    isRequesting: false,
+    isSuccess: false,
+    isFailure: true,
+  }
 }
 
 export default function item(state = initialState, action) {

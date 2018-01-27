@@ -36,7 +36,7 @@ describe('message reducer', () => {
           { key: 'key2', style: 'info', text: 'hello 2' },
           { key: 'key3', style: 'info', text: 'hello 3' },
           { key: 'key4', style: 'info', text: 'hello 4' },
-        ]
+        ],
       }
       const action = {
         type: Message.REMOVE_MESSAGE,
@@ -62,7 +62,7 @@ describe('message reducer', () => {
           { key: 'key2', style: 'info', text: 'hello 2' },
           { key: 'key3', style: 'info', text: 'hello 3' },
           { key: 'key4', style: 'info', text: 'hello 4' },
-        ]
+        ],
       }
       const action = {
         type: Message.CLEAR_MESSAGES,

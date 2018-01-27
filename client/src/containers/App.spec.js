@@ -36,10 +36,12 @@ describe('App', () => {
     props = {}
     mountedApp = undefined
     mock.reset()
-    mock.onGet('/v1/items').reply(200, [
-      { id: 1, name: 'TODO 1', note: 'Note for TODO 1' },
-      { id: 2, name: 'TODO 2', note: 'Note for TODO 2' },
-    ])
+    mock
+      .onGet('/v1/items')
+      .reply(200, [
+        { id: 1, name: 'TODO 1', note: 'Note for TODO 1' },
+        { id: 2, name: 'TODO 2', note: 'Note for TODO 2' },
+      ])
   })
 
   it('renders without crashing', () => {
