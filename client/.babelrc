@@ -1,0 +1,11 @@
+{
+  "presets": [
+    "react-app",
+    "flow"
+  ],
+  "plugins": [
+    "syntax-flow",
+    "flow-react-proptypes",
+    "transform-class-properties"
+  ]
+}
