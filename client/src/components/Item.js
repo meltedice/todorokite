@@ -9,14 +9,14 @@ import FormControl from 'react-bootstrap/lib/FormControl'
 import Glyphicon from 'react-bootstrap/lib/Glyphicon'
 
 class ItemToolbox extends Component {
-  handleOnComplete = (event) => {
+  handleOnComplete = event => {
     const { item, onComplete } = this.props
     event.stopPropagation() // Stop onToggle
     onComplete(item)
     return false
   }
 
-  handleOnUncomplete = (event) => {
+  handleOnUncomplete = event => {
     const { item, onUncomplete } = this.props
     event.stopPropagation() // Stop onToggle
     onUncomplete(item)
@@ -33,11 +33,11 @@ class ItemToolbox extends Component {
       fontSize: '20px',
     }
     return (
-      <div className='pull-right' style={style}>
+      <div className="pull-right" style={style}>
         {item.state === 'active' ? (
-          <Glyphicon glyph='unchecked' onClick={this.handleOnComplete} />
+          <Glyphicon glyph="unchecked" onClick={this.handleOnComplete} />
         ) : (
-          <Glyphicon glyph='check' onClick={this.handleOnUncomplete} />
+          <Glyphicon glyph="check" onClick={this.handleOnUncomplete} />
         )}
       </div>
     )
@@ -55,16 +55,18 @@ class ItemSummary extends Component {
   render() {
     const { item, onToggle, onComplete, onUncomplete } = this.props
     const header = (
-      <div className='item-summary'>
+      <div className="item-summary">
         <span>{item.name}</span>
-        <ItemToolbox item={item} onComplete={onComplete} onUncomplete={onUncomplete} />
+        <ItemToolbox
+          item={item}
+          onComplete={onComplete}
+          onUncomplete={onUncomplete}
+        />
       </div>
     )
-    const style = { 'textAlign': 'left', marginBottom: 0 }
+    const style = { textAlign: 'left', marginBottom: 0 }
     const panelProps = { header, style, onClick: onToggle }
-    return (
-      <Panel {...panelProps} />
-    )
+    return <Panel {...panelProps} />
   }
 }
 
@@ -84,12 +86,12 @@ class ItemDetail extends Component {
     this.itemNote = undefined
   }
 
-  handleOnCancel = (event) => {
+  handleOnCancel = event => {
     const { onToggle } = this.props
     onToggle(event)
   }
 
-  handleOnSave = (event) => {
+  handleOnSave = event => {
     const { item, onToggle, onSave } = this.props
     const params = {
       id: item.id,
@@ -100,12 +102,12 @@ class ItemDetail extends Component {
     onToggle(event)
   }
 
-  handleOnDelete = (event) => {
+  handleOnDelete = event => {
     const { item, onDelete } = this.props
     onDelete(item)
   }
 
-  handleHeaderClick = (event) => {
+  handleHeaderClick = event => {
     const { onToggle } = this.props
     onToggle(event)
   }
@@ -113,32 +115,54 @@ class ItemDetail extends Component {
   render() {
     const { item, onComplete, onUncomplete } = this.props
     const header = (
-      <div className='item-detail' onClick={this.handleHeaderClick}>
+      <div className="item-detail" onClick={this.handleHeaderClick}>
         <span style={{ display: 'inline-block' }}>{item.name}</span>
-        <ItemToolbox item={item} onComplete={onComplete} onUncomplete={onUncomplete} />
+        <ItemToolbox
+          item={item}
+          onComplete={onComplete}
+          onUncomplete={onUncomplete}
+        />
       </div>
     )
-    const style = { 'textAlign': 'left', marginBottom: 0 }
+    const style = { textAlign: 'left', marginBottom: 0 }
     const panelProps = { header, style }
     return (
       <Panel {...panelProps}>
         <FormGroup>
           <ControlLabel>Name</ControlLabel>
-          <FormControl type='text' defaultValue={item.name} inputRef={ref => { this.itemName = ref }} />
+          <FormControl
+            type="text"
+            defaultValue={item.name}
+            inputRef={ref => {
+              this.itemName = ref
+            }}
+          />
         </FormGroup>
         <FormGroup>
           <ControlLabel>Note</ControlLabel>
-          <FormControl componentClass='textarea' defaultValue={item.note} inputRef={ref => { this.itemNote = ref }} />
+          <FormControl
+            componentClass="textarea"
+            defaultValue={item.note}
+            inputRef={ref => {
+              this.itemNote = ref
+            }}
+          />
         </FormGroup>
         <div>
-          <ButtonToolbar className='pull-left'>
-            <Button onClick={this.handleOnDelete} bsStyle='danger' disabled={!item.id}>
-              <Glyphicon glyph='trash' />
+          <ButtonToolbar className="pull-left">
+            <Button
+              onClick={this.handleOnDelete}
+              bsStyle="danger"
+              disabled={!item.id}
+            >
+              <Glyphicon glyph="trash" />
             </Button>
           </ButtonToolbar>
-          <ButtonToolbar className='pull-right'>
+          <ButtonToolbar className="pull-right">
             <Button onClick={this.handleOnCancel}>Cancel</Button>
-            <Button onClick={this.handleOnSave} bsStyle='primary'>Save</Button>
+            <Button onClick={this.handleOnSave} bsStyle="primary">
+              Save
+            </Button>
           </ButtonToolbar>
         </div>
       </Panel>
@@ -159,7 +183,7 @@ class Item extends Component {
     status: undefined,
   }
 
-  handleToggle = (event) => {
+  handleToggle = event => {
     event.preventDefault()
     const { status } = this.state
     const nextStatus = status === 'summary' ? 'detail' : 'summary'
@@ -176,7 +200,7 @@ class Item extends Component {
     const { item, onSave, onDelete, onComplete, onUncomplete } = this.props
     const { status } = this.state
     return (
-      <div className='item'>
+      <div className="item">
         {status === 'summary' ? (
           <ItemSummary
             item={item}

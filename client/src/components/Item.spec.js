@@ -14,7 +14,13 @@ describe('Item', () => {
     const onComplete = jest.fn()
     const onUncomplete = jest.fn()
     const itemComponent = mount(
-      <Item item={item} onSave={onSave} onDelete={onDelete} onComplete={onComplete} onUncomplete={onUncomplete} />
+      <Item
+        item={item}
+        onSave={onSave}
+        onDelete={onDelete}
+        onComplete={onComplete}
+        onUncomplete={onUncomplete}
+      />
     )
     expect(itemComponent.find('.item').exists()).toBeTruthy()
     expect(itemComponent.find('.item-summary').exists()).toBeFalsy()
@@ -28,7 +34,13 @@ describe('Item', () => {
     const onComplete = jest.fn()
     const onUncomplete = jest.fn()
     const itemComponent = mount(
-      <Item item={item} onSave={onSave} onDelete={onDelete} onComplete={onComplete} onUncomplete={onUncomplete} />
+      <Item
+        item={item}
+        onSave={onSave}
+        onDelete={onDelete}
+        onComplete={onComplete}
+        onUncomplete={onUncomplete}
+      />
     )
     expect(itemComponent.find('.item').exists()).toBeTruthy()
     expect(itemComponent.find('.item-summary').exists()).toBeTruthy()

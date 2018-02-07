@@ -7,7 +7,9 @@ const initialState = {
 const addMessage = (state, action) => {
   const { messages } = state
   const { message } = action
-  const key = Math.random().toString(36).substr(2, 6)
+  const key = Math.random()
+    .toString(36)
+    .substr(2, 6)
   return { state, messages: messages.concat({ ...message, key }) }
 }
 

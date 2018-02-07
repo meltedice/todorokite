@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import {
-  withRouter, Route, Switch, Redirect,
-} from 'react-router-dom'
+import { withRouter, Route, Switch, Redirect } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
@@ -23,13 +21,13 @@ class App extends Component {
 
   render() {
     return (
-      <div id='todorokite'>
+      <div id="todorokite">
         <Header />
-        <div id='todorokite-body'>
+        <div id="todorokite-body">
           <Notificationbar />
           <Switch>
-            <Route exact path='/' render={props => <Redirect to='/items' />} />
-            <Route exact path='/items' component={Items} />
+            <Route exact path="/" render={props => <Redirect to="/items" />} />
+            <Route exact path="/items" component={Items} />
           </Switch>
         </div>
       </div>
@@ -37,15 +35,12 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   location: state.routing.location,
 })
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   itemActions: bindActionCreators(item, dispatch),
 })
 
-export default withRouter(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))

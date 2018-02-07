@@ -9,7 +9,7 @@ import Glyphicon from 'react-bootstrap/lib/Glyphicon'
 import * as message from '../actions/message'
 
 class MessagePanel extends Component {
-  onDismiss = (event) => {
+  onDismiss = event => {
     const { message, messageActions } = this.props
     messageActions.removeMessage(message.key)
   }
@@ -20,7 +20,7 @@ class MessagePanel extends Component {
       <div>
         <span>{message.text}</span>
         <span style={{ float: 'right' }} onClick={this.onDismiss}>
-          <Glyphicon glyph='remove' />
+          <Glyphicon glyph="remove" />
         </span>
       </div>
     )
@@ -33,7 +33,7 @@ class Notificationbar extends Component {
     messageActions: PropTypes.object.isRequired,
   }
 
-  handleDismiss = (event) => {
+  handleDismiss = event => {
     const { messageActions } = this.props
     messageActions.removeMessage()
   }
@@ -42,26 +42,21 @@ class Notificationbar extends Component {
     const { messages, messageActions } = this.props
     if (messages.length <= 0) return null
     const messagePanels = messages.map(message => {
-      const header = <MessagePanel message={message} messageActions={messageActions} />
+      const header = (
+        <MessagePanel message={message} messageActions={messageActions} />
+      )
       return <Panel key={message.key} bsStyle={message.style} header={header} />
     })
-    return (
-      <div className='notifications'>
-        {messagePanels}
-      </div>
-    )
+    return <div className="notifications">{messagePanels}</div>
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   messages: state.message.messages,
 })
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   messageActions: bindActionCreators(message, dispatch),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Notificationbar)
+export default connect(mapStateToProps, mapDispatchToProps)(Notificationbar)

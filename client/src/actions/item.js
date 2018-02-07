@@ -15,16 +15,15 @@ export const api = axios.create({
 
 export const getAllItems = () => dispatch => {
   dispatch(getAllItemsRequest())
-  return api.get('/v1/items').then(
-    response => {
+  return api
+    .get('/v1/items')
+    .then(response => {
       dispatch(getAllItemsSuccess(response.data))
-    }
-  ).catch(
-    error => {
+    })
+    .catch(error => {
       console.error(error)
       dispatch(getAllItemsFailure(error))
-    }
-  )
+    })
 }
 
 export const getAllItemsRequest = () => {
@@ -33,14 +32,14 @@ export const getAllItemsRequest = () => {
   }
 }
 
-export const getAllItemsSuccess = (items) => {
+export const getAllItemsSuccess = items => {
   return {
     type: Item.GET_ALL_ITEMS_SUCCESS,
     items,
   }
 }
 
-export const getAllItemsFailure = (error) => {
+export const getAllItemsFailure = error => {
   return {
     type: Item.GET_ALL_ITEMS_FAILURE,
     error,
@@ -53,28 +52,27 @@ export const addEmptyItem = () => {
   }
 }
 
-export const createItem = (item) => dispatch => {
+export const createItem = item => dispatch => {
   dispatch(createItemRequest(item))
-  return api.post('/v1/items', item).then(
-    response => {
+  return api
+    .post('/v1/items', item)
+    .then(response => {
       dispatch(createItemSuccess(response.data))
-    }
-  ).catch(
-    error => {
+    })
+    .catch(error => {
       console.error(error)
       dispatch(createItemFailure(item, error))
-    }
-  )
+    })
 }
 
-export const createItemRequest = (item) => {
+export const createItemRequest = item => {
   return {
     type: Item.CREATE_ITEM_REQUEST,
     item,
   }
 }
 
-export const createItemSuccess = (item) => {
+export const createItemSuccess = item => {
   return {
     type: Item.CREATE_ITEM_SUCCESS,
     item,
@@ -89,28 +87,27 @@ export const createItemFailure = (item, error) => {
   }
 }
 
-export const updateItem = (item) => dispatch => {
+export const updateItem = item => dispatch => {
   dispatch(updateItemRequest(item))
-  return api.put(`/v1/items/${item.id}`, item).then(
-    response => {
+  return api
+    .put(`/v1/items/${item.id}`, item)
+    .then(response => {
       dispatch(updateItemSuccess(response.data))
-    }
-  ).catch(
-    error => {
+    })
+    .catch(error => {
       console.error(error)
       dispatch(updateItemFailure(item, error))
-    }
-  )
+    })
 }
 
-export const updateItemRequest = (item) => {
+export const updateItemRequest = item => {
   return {
     type: Item.UPDATE_ITEM_REQUEST,
     item,
   }
 }
 
-export const updateItemSuccess = (item) => {
+export const updateItemSuccess = item => {
   return {
     type: Item.UPDATE_ITEM_SUCCESS,
     item,
@@ -125,28 +122,27 @@ export const updateItemFailure = (item, error) => {
   }
 }
 
-export const deleteItem = (item) => dispatch => {
+export const deleteItem = item => dispatch => {
   dispatch(deleteItemRequest(item))
-  return api.delete(`/v1/items/${item.id}`).then(
-    response => {
+  return api
+    .delete(`/v1/items/${item.id}`)
+    .then(response => {
       dispatch(deleteItemSuccess(item))
-    }
-  ).catch(
-    error => {
+    })
+    .catch(error => {
       console.error(error)
       dispatch(deleteItemFailure(item, error))
-    }
-  )
+    })
 }
 
-export const deleteItemRequest = (item) => {
+export const deleteItemRequest = item => {
   return {
     type: Item.DELETE_ITEM_REQUEST,
     item,
   }
 }
 
-export const deleteItemSuccess = (item) => {
+export const deleteItemSuccess = item => {
   return {
     type: Item.DELETE_ITEM_SUCCESS,
     item,
@@ -160,28 +156,27 @@ export const deleteItemFailure = (item, error) => {
   }
 }
 
-export const completeItem = (item) => dispatch => {
+export const completeItem = item => dispatch => {
   dispatch(completeItemRequest(item))
-  return api.put(`/v1/items/${item.id}/completion`).then(
-    response => {
+  return api
+    .put(`/v1/items/${item.id}/completion`)
+    .then(response => {
       dispatch(completeItemSuccess(item))
-    }
-  ).catch(
-    error => {
+    })
+    .catch(error => {
       console.error(error)
       dispatch(completeItemFailure(item, error))
-    }
-  )
+    })
 }
 
-export const completeItemRequest = (item) => {
+export const completeItemRequest = item => {
   return {
     type: Item.COMPLETE_ITEM_REQUEST,
     item,
   }
 }
 
-export const completeItemSuccess = (item) => {
+export const completeItemSuccess = item => {
   return {
     type: Item.COMPLETE_ITEM_SUCCESS,
     item,
@@ -196,28 +191,27 @@ export const completeItemFailure = (item, error) => {
   }
 }
 
-export const uncompleteItem = (item) => dispatch => {
+export const uncompleteItem = item => dispatch => {
   dispatch(uncompleteItemRequest(item))
-  return api.delete(`/v1/items/${item.id}/completion`).then(
-    response => {
+  return api
+    .delete(`/v1/items/${item.id}/completion`)
+    .then(response => {
       dispatch(uncompleteItemSuccess(item))
-    }
-  ).catch(
-    error => {
+    })
+    .catch(error => {
       console.error(error)
       dispatch(uncompleteItemFailure(item, error))
-    }
-  )
+    })
 }
 
-export const uncompleteItemRequest = (item) => {
+export const uncompleteItemRequest = item => {
   return {
     type: Item.UNCOMPLETE_ITEM_REQUEST,
     item,
   }
 }
 
-export const uncompleteItemSuccess = (item) => {
+export const uncompleteItemSuccess = item => {
   return {
     type: Item.UNCOMPLETE_ITEM_SUCCESS,
     item,
